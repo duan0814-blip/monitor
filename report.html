@@ -1,0 +1,21 @@
+// 關鍵邏輯：解析 optionList
+async function fetchKMonstarAPI() {
+    const res = await fetch('你的 API 網址');
+    const json = await res.json();
+    
+    // 從你提供的 API 回應值中精確抓取
+    const options = json.data.optionList;
+    
+    const stats = options.reduce((acc, opt) => {
+        const rawName = opt.optionNameValue1; // 例如 "예지 YEJI"
+        const name = rawName.split(' ').pop(); // 只取英文名 "YEJI"
+        const qty = opt.salesQuantity;
+        
+        if (name && qty >= 0) {
+            acc[name] = qty; // 直接存入銷量
+        }
+        return acc;
+    }, {});
+    
+    render(stats);
+}
