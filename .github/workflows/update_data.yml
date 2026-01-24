@@ -1,4 +1,0 @@
-- name: Fetch Product List
-        run: |
-          # 抓取產品列表 API 並存成 list.json
-          curl -s "https://kmonstar.org/api/v1/product/list?page=1&limit=20&categoryId=4" > list.json
