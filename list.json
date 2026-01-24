@@ -1,0 +1,1099 @@
+{
+  "success": true,
+  "message": "Artist category list search was successful.",
+  "statusCode": 200,
+  "data": [
+    {
+      "id": 1,
+      "category": "BOY GROUP",
+      "artists": [
+        {
+          "id": 2,
+          "artistNameEN": "ASTRO",
+          "artistNameKO": "아스트로",
+          "softDeletedAt": null
+        },
+        {
+          "id": 3,
+          "artistNameEN": "ATEEZ",
+          "artistNameKO": "에이티즈",
+          "softDeletedAt": null
+        },
+        {
+          "id": 4,
+          "artistNameEN": "BIGBANG",
+          "artistNameKO": "빅뱅",
+          "softDeletedAt": null
+        },
+        {
+          "id": 5,
+          "artistNameEN": "BTOB",
+          "artistNameKO": "비투비",
+          "softDeletedAt": null
+        },
+        {
+          "id": 6,
+          "artistNameEN": "BTS",
+          "artistNameKO": "방탄소년단",
+          "softDeletedAt": null
+        },
+        {
+          "id": 7,
+          "artistNameEN": "CRAVITY",
+          "artistNameKO": "크래비티",
+          "softDeletedAt": null
+        },
+        {
+          "id": 9,
+          "artistNameEN": "ENHYPEN",
+          "artistNameKO": "엔하이픈",
+          "softDeletedAt": null
+        },
+        {
+          "id": 10,
+          "artistNameEN": "EXO",
+          "artistNameKO": "엑소",
+          "softDeletedAt": null
+        },
+        {
+          "id": 12,
+          "artistNameEN": "NCT",
+          "artistNameKO": "엔시티",
+          "softDeletedAt": null
+        },
+        {
+          "id": 15,
+          "artistNameEN": "P1Harmony",
+          "artistNameKO": "피원하모니",
+          "softDeletedAt": null
+        },
+        {
+          "id": 16,
+          "artistNameEN": "SEVENTEEN",
+          "artistNameKO": "세븐틴",
+          "softDeletedAt": null
+        },
+        {
+          "id": 18,
+          "artistNameEN": "SHINee",
+          "artistNameKO": "샤이니",
+          "softDeletedAt": null
+        },
+        {
+          "id": 19,
+          "artistNameEN": "Stray Kids",
+          "artistNameKO": "스트레이키즈",
+          "softDeletedAt": null
+        },
+        {
+          "id": 20,
+          "artistNameEN": "SUPER JUNIOR",
+          "artistNameKO": "슈퍼주니어",
+          "softDeletedAt": null
+        },
+        {
+          "id": 21,
+          "artistNameEN": "THE BOYZ",
+          "artistNameKO": "더보이즈",
+          "softDeletedAt": null
+        },
+        {
+          "id": 22,
+          "artistNameEN": "Tomorrow X Together",
+          "artistNameKO": "투모로우바이투게더",
+          "softDeletedAt": null
+        },
+        {
+          "id": 23,
+          "artistNameEN": "TREASURE",
+          "artistNameKO": "트레저",
+          "softDeletedAt": null
+        },
+        {
+          "id": 24,
+          "artistNameEN": "WayV",
+          "artistNameKO": "웨이션브이",
+          "softDeletedAt": null
+        },
+        {
+          "id": 25,
+          "artistNameEN": "WINNER",
+          "artistNameKO": "위너",
+          "softDeletedAt": null
+        },
+        {
+          "id": 26,
+          "artistNameEN": "ZEROBASEONE",
+          "artistNameKO": "제로베이스원",
+          "softDeletedAt": null
+        },
+        {
+          "id": 71,
+          "artistNameEN": "DAY6",
+          "artistNameKO": "데이식스",
+          "softDeletedAt": null
+        },
+        {
+          "id": 73,
+          "artistNameEN": "RIIZE",
+          "artistNameKO": "라이즈",
+          "softDeletedAt": null
+        },
+        {
+          "id": 75,
+          "artistNameEN": "ONF",
+          "artistNameKO": "온앤오프",
+          "softDeletedAt": null
+        },
+        {
+          "id": 77,
+          "artistNameEN": "LUN8",
+          "artistNameKO": "루네이트",
+          "softDeletedAt": null
+        },
+        {
+          "id": 79,
+          "artistNameEN": "SF9",
+          "artistNameKO": "에스에프나인",
+          "softDeletedAt": null
+        },
+        {
+          "id": 82,
+          "artistNameEN": "TWS",
+          "artistNameKO": "투어스",
+          "softDeletedAt": null
+        },
+        {
+          "id": 87,
+          "artistNameEN": "MONSTA X",
+          "artistNameKO": "몬스타엑스",
+          "softDeletedAt": null
+        },
+        {
+          "id": 91,
+          "artistNameEN": "YOUNITE",
+          "artistNameKO": "유나이트",
+          "softDeletedAt": null
+        },
+        {
+          "id": 93,
+          "artistNameEN": "N.Flying",
+          "artistNameKO": "엔플라잉",
+          "softDeletedAt": null
+        },
+        {
+          "id": 102,
+          "artistNameEN": "BOYNEXTDOOR",
+          "artistNameKO": "보이넥스트도어",
+          "softDeletedAt": null
+        },
+        {
+          "id": 105,
+          "artistNameEN": "NCT WISH",
+          "artistNameKO": "엔시티위시",
+          "softDeletedAt": null
+        },
+        {
+          "id": 113,
+          "artistNameEN": "SEVENTOEIGHT",
+          "artistNameKO": "세븐투에잇",
+          "softDeletedAt": null
+        },
+        {
+          "id": 115,
+          "artistNameEN": "idntt",
+          "artistNameKO": "아이덴티티",
+          "softDeletedAt": null
+        },
+        {
+          "id": 117,
+          "artistNameEN": "KickFlip",
+          "artistNameKO": "킥플립",
+          "softDeletedAt": null
+        },
+        {
+          "id": 118,
+          "artistNameEN": "XODIAC",
+          "artistNameKO": "소디엑",
+          "softDeletedAt": null
+        },
+        {
+          "id": 120,
+          "artistNameEN": "LEE MIN HYUK",
+          "artistNameKO": "이민혁",
+          "softDeletedAt": null
+        },
+        {
+          "id": 123,
+          "artistNameEN": "NOWZ",
+          "artistNameKO": "나우즈",
+          "softDeletedAt": null
+        },
+        {
+          "id": 126,
+          "artistNameEN": "ONE PACT",
+          "artistNameKO": "원팩트",
+          "softDeletedAt": null
+        },
+        {
+          "id": 136,
+          "artistNameEN": "DIGNITY",
+          "artistNameKO": "디그니티",
+          "softDeletedAt": null
+        },
+        {
+          "id": 139,
+          "artistNameEN": "ONEUS",
+          "artistNameKO": "원어스",
+          "softDeletedAt": null
+        },
+        {
+          "id": 140,
+          "artistNameEN": "SEVENUS",
+          "artistNameKO": "세븐어스",
+          "softDeletedAt": null
+        },
+        {
+          "id": 141,
+          "artistNameEN": "AB6IX",
+          "artistNameKO": "에이비식스",
+          "softDeletedAt": null
+        },
+        {
+          "id": 158,
+          "artistNameEN": "PLAVE",
+          "artistNameKO": "플레이브",
+          "softDeletedAt": null
+        },
+        {
+          "id": 159,
+          "artistNameEN": "CORTIS",
+          "artistNameKO": "코르티스",
+          "softDeletedAt": null
+        },
+        {
+          "id": 160,
+          "artistNameEN": "NEXZ",
+          "artistNameKO": "넥스지",
+          "softDeletedAt": null
+        },
+        {
+          "id": 162,
+          "artistNameEN": "SAJA BOYS",
+          "artistNameKO": "사자보이즈",
+          "softDeletedAt": null
+        },
+        {
+          "id": 175,
+          "artistNameEN": "Xdinary Heroes",
+          "artistNameKO": "엑스디너리 히어로즈",
+          "softDeletedAt": null
+        },
+        {
+          "id": 176,
+          "artistNameEN": "NCT DREAM",
+          "artistNameKO": "엔시티드림",
+          "softDeletedAt": null
+        },
+        {
+          "id": 177,
+          "artistNameEN": "NCT127",
+          "artistNameKO": "엔시티127",
+          "softDeletedAt": null
+        },
+        {
+          "id": 178,
+          "artistNameEN": "TVXQ!",
+          "artistNameKO": "동방신기",
+          "softDeletedAt": null
+        },
+        {
+          "id": 180,
+          "artistNameEN": "AMPERS&ONE",
+          "artistNameKO": "앰퍼샌드원",
+          "softDeletedAt": null
+        },
+        {
+          "id": 181,
+          "artistNameEN": "The Wind",
+          "artistNameKO": "더윈드",
+          "softDeletedAt": null
+        },
+        {
+          "id": 184,
+          "artistNameEN": "ONEWE",
+          "artistNameKO": "원위",
+          "softDeletedAt": null
+        },
+        {
+          "id": 196,
+          "artistNameEN": "CLOSE YOUR EYES",
+          "artistNameKO": "클로즈 유어 아이즈",
+          "softDeletedAt": null
+        },
+        {
+          "id": 197,
+          "artistNameEN": "AxMxP",
+          "artistNameKO": "에이엠피",
+          "softDeletedAt": null
+        },
+        {
+          "id": 199,
+          "artistNameEN": "ALPHA DRIVE ONE",
+          "artistNameKO": "알파드라이브원",
+          "softDeletedAt": null
+        },
+        {
+          "id": 202,
+          "artistNameEN": "HIGHLIGHT",
+          "artistNameKO": "하이라이트",
+          "softDeletedAt": null
+        },
+        {
+          "id": 206,
+          "artistNameEN": "LNGSHOT",
+          "artistNameKO": "롱샷",
+          "softDeletedAt": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "category": "GIRL GROUP",
+      "artists": [
+        {
+          "id": 27,
+          "artistNameEN": "aespa",
+          "artistNameKO": "에스파",
+          "softDeletedAt": null
+        },
+        {
+          "id": 31,
+          "artistNameEN": "BLACKPINK",
+          "artistNameKO": "블랙핑크",
+          "softDeletedAt": null
+        },
+        {
+          "id": 33,
+          "artistNameEN": "FIFTY FIFTY",
+          "artistNameKO": "피프티 피프티",
+          "softDeletedAt": null
+        },
+        {
+          "id": 35,
+          "artistNameEN": "I-DLE",
+          "artistNameKO": "아이들",
+          "softDeletedAt": null
+        },
+        {
+          "id": 36,
+          "artistNameEN": "Girl's Generation",
+          "artistNameKO": "소녀시대",
+          "softDeletedAt": null
+        },
+        {
+          "id": 37,
+          "artistNameEN": "ITZY",
+          "artistNameKO": "있지",
+          "softDeletedAt": null
+        },
+        {
+          "id": 38,
+          "artistNameEN": "IVE",
+          "artistNameKO": "아이브",
+          "softDeletedAt": null
+        },
+        {
+          "id": 39,
+          "artistNameEN": "Kep1er",
+          "artistNameKO": "캐플러",
+          "softDeletedAt": null
+        },
+        {
+          "id": 40,
+          "artistNameEN": "LE SSERAFIM",
+          "artistNameKO": "르세라핌",
+          "softDeletedAt": null
+        },
+        {
+          "id": 41,
+          "artistNameEN": "MAMAMOO",
+          "artistNameKO": "마마무",
+          "softDeletedAt": null
+        },
+        {
+          "id": 42,
+          "artistNameEN": "NewJeans",
+          "artistNameKO": "뉴진스",
+          "softDeletedAt": null
+        },
+        {
+          "id": 43,
+          "artistNameEN": "NMIXX",
+          "artistNameKO": "엔믹스",
+          "softDeletedAt": null
+        },
+        {
+          "id": 46,
+          "artistNameEN": "Red Velvet",
+          "artistNameKO": "레드벨벳",
+          "softDeletedAt": null
+        },
+        {
+          "id": 50,
+          "artistNameEN": "TWICE",
+          "artistNameKO": "트와이스",
+          "softDeletedAt": null
+        },
+        {
+          "id": 51,
+          "artistNameEN": "VIVIZ",
+          "artistNameKO": "비비지",
+          "softDeletedAt": null
+        },
+        {
+          "id": 81,
+          "artistNameEN": "KiiiKiii",
+          "artistNameKO": "키키",
+          "softDeletedAt": null
+        },
+        {
+          "id": 92,
+          "artistNameEN": "ARTMS",
+          "artistNameKO": "아르테미스",
+          "softDeletedAt": null
+        },
+        {
+          "id": 97,
+          "artistNameEN": " STAYC",
+          "artistNameKO": "스테이씨",
+          "softDeletedAt": null
+        },
+        {
+          "id": 99,
+          "artistNameEN": "ALLDAY PROJECT",
+          "artistNameKO": "올데이프로젝트",
+          "softDeletedAt": null
+        },
+        {
+          "id": 100,
+          "artistNameEN": "tripleS",
+          "artistNameKO": "트리플에스",
+          "softDeletedAt": null
+        },
+        {
+          "id": 110,
+          "artistNameEN": "BABYMONSTER",
+          "artistNameKO": "베이비몬스터",
+          "softDeletedAt": null
+        },
+        {
+          "id": 131,
+          "artistNameEN": "ILLIT",
+          "artistNameKO": "아일릿",
+          "softDeletedAt": null
+        },
+        {
+          "id": 132,
+          "artistNameEN": "MEOVV",
+          "artistNameKO": "미야오",
+          "softDeletedAt": null
+        },
+        {
+          "id": 135,
+          "artistNameEN": "izna",
+          "artistNameKO": "이즈나",
+          "softDeletedAt": null
+        },
+        {
+          "id": 142,
+          "artistNameEN": "GENBLUE",
+          "artistNameKO": "젠블루",
+          "softDeletedAt": null
+        },
+        {
+          "id": 154,
+          "artistNameEN": "Hearts2Hearts",
+          "artistNameKO": "하츠투하츠",
+          "softDeletedAt": null
+        },
+        {
+          "id": 161,
+          "artistNameEN": "YOUNG POSSE",
+          "artistNameKO": "영파씨",
+          "softDeletedAt": null
+        },
+        {
+          "id": 163,
+          "artistNameEN": "HUNTRIX",
+          "artistNameKO": "헌트릭스",
+          "softDeletedAt": null
+        },
+        {
+          "id": 171,
+          "artistNameEN": "UAU",
+          "artistNameKO": "유아유",
+          "softDeletedAt": null
+        },
+        {
+          "id": 179,
+          "artistNameEN": "Apink",
+          "artistNameKO": "에이핑크",
+          "softDeletedAt": null
+        },
+        {
+          "id": 183,
+          "artistNameEN": "KISS OF LIFE",
+          "artistNameKO": "키스오브라이프",
+          "softDeletedAt": null
+        },
+        {
+          "id": 191,
+          "artistNameEN": "WJSN",
+          "artistNameKO": "우주소녀",
+          "softDeletedAt": null
+        },
+        {
+          "id": 205,
+          "artistNameEN": "Billlie",
+          "artistNameKO": "빌리",
+          "softDeletedAt": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "category": "SOLO",
+      "artists": [
+        {
+          "id": 54,
+          "artistNameEN": "HA SUNG WOON",
+          "artistNameKO": "하성운",
+          "softDeletedAt": null
+        },
+        {
+          "id": 57,
+          "artistNameEN": "HyunA",
+          "artistNameKO": "현아",
+          "softDeletedAt": null
+        },
+        {
+          "id": 58,
+          "artistNameEN": "IU",
+          "artistNameKO": "아이유",
+          "softDeletedAt": null
+        },
+        {
+          "id": 59,
+          "artistNameEN": "JAY PARK",
+          "artistNameKO": "박재범",
+          "softDeletedAt": null
+        },
+        {
+          "id": 61,
+          "artistNameEN": "KWON EUN BI",
+          "artistNameKO": "권은비",
+          "softDeletedAt": null
+        },
+        {
+          "id": 62,
+          "artistNameEN": "ONG SEONG-WU",
+          "artistNameKO": "옹성우",
+          "softDeletedAt": null
+        },
+        {
+          "id": 63,
+          "artistNameEN": "SOMI",
+          "artistNameKO": "전소미",
+          "softDeletedAt": null
+        },
+        {
+          "id": 69,
+          "artistNameEN": "CHUNG HA",
+          "artistNameKO": "청하",
+          "softDeletedAt": null
+        },
+        {
+          "id": 74,
+          "artistNameEN": "Solar",
+          "artistNameKO": "솔라",
+          "softDeletedAt": null
+        },
+        {
+          "id": 80,
+          "artistNameEN": "PARK WOO JIN",
+          "artistNameKO": "박우진",
+          "softDeletedAt": null
+        },
+        {
+          "id": 86,
+          "artistNameEN": "HWASA",
+          "artistNameKO": "화사",
+          "softDeletedAt": null
+        },
+        {
+          "id": 98,
+          "artistNameEN": "KANG DANIEL",
+          "artistNameKO": "강다니엘",
+          "softDeletedAt": null
+        },
+        {
+          "id": 107,
+          "artistNameEN": "MOON BYUL",
+          "artistNameKO": "문별",
+          "softDeletedAt": null
+        },
+        {
+          "id": 112,
+          "artistNameEN": "DOYOUNG",
+          "artistNameKO": "도영",
+          "softDeletedAt": null
+        },
+        {
+          "id": 119,
+          "artistNameEN": "G-DRAGON",
+          "artistNameKO": "지드래곤",
+          "softDeletedAt": null
+        },
+        {
+          "id": 122,
+          "artistNameEN": "HUTA",
+          "artistNameKO": "허타",
+          "softDeletedAt": null
+        },
+        {
+          "id": 128,
+          "artistNameEN": "XNGHAN",
+          "artistNameKO": "승한",
+          "softDeletedAt": null
+        },
+        {
+          "id": 133,
+          "artistNameEN": "B.I",
+          "artistNameKO": "비아이",
+          "softDeletedAt": null
+        },
+        {
+          "id": 137,
+          "artistNameEN": "CHEN",
+          "artistNameKO": "첸",
+          "softDeletedAt": null
+        },
+        {
+          "id": 138,
+          "artistNameEN": "HAN SEUNG WOO",
+          "artistNameKO": "한승우",
+          "softDeletedAt": null
+        },
+        {
+          "id": 146,
+          "artistNameEN": "SEO IN GUK",
+          "artistNameKO": "서인국",
+          "softDeletedAt": null
+        },
+        {
+          "id": 147,
+          "artistNameEN": "YOOK SUNG JAE",
+          "artistNameKO": "육성재",
+          "softDeletedAt": null
+        },
+        {
+          "id": 150,
+          "artistNameEN": "BamBam",
+          "artistNameKO": "뱀뱀",
+          "softDeletedAt": null
+        },
+        {
+          "id": 153,
+          "artistNameEN": "BoA",
+          "artistNameKO": "보아",
+          "softDeletedAt": null
+        },
+        {
+          "id": 155,
+          "artistNameEN": "TAEYEON",
+          "artistNameKO": "태연",
+          "softDeletedAt": null
+        },
+        {
+          "id": 156,
+          "artistNameEN": "LEECHANGSUB",
+          "artistNameKO": "이창섭",
+          "softDeletedAt": null
+        },
+        {
+          "id": 157,
+          "artistNameEN": "BAE JIN YOUNG",
+          "artistNameKO": "배진영",
+          "softDeletedAt": null
+        },
+        {
+          "id": 164,
+          "artistNameEN": "LEE HYO RI",
+          "artistNameKO": "이효리",
+          "softDeletedAt": null
+        },
+        {
+          "id": 167,
+          "artistNameEN": "D.O.",
+          "artistNameKO": "도경수",
+          "softDeletedAt": null
+        },
+        {
+          "id": 172,
+          "artistNameEN": "JUN. K",
+          "artistNameKO": "준케이",
+          "softDeletedAt": null
+        },
+        {
+          "id": 173,
+          "artistNameEN": "NICHKHUN",
+          "artistNameKO": "닉쿤",
+          "softDeletedAt": null
+        },
+        {
+          "id": 174,
+          "artistNameEN": "JANG WOOYOUNG",
+          "artistNameKO": "장우영",
+          "softDeletedAt": null
+        },
+        {
+          "id": 185,
+          "artistNameEN": "PARK JIN YOUNG",
+          "artistNameKO": "박진영",
+          "softDeletedAt": null
+        },
+        {
+          "id": 186,
+          "artistNameEN": "WOODZ",
+          "artistNameKO": "우즈",
+          "softDeletedAt": null
+        },
+        {
+          "id": 189,
+          "artistNameEN": "RISABAE",
+          "artistNameKO": "이사배",
+          "softDeletedAt": null
+        },
+        {
+          "id": 190,
+          "artistNameEN": "Whee In",
+          "artistNameKO": "휘인",
+          "softDeletedAt": null
+        },
+        {
+          "id": 194,
+          "artistNameEN": "WONHO",
+          "artistNameKO": "원호",
+          "softDeletedAt": null
+        },
+        {
+          "id": 198,
+          "artistNameEN": "CHUEI LI YU",
+          "artistNameKO": "최립우",
+          "softDeletedAt": null
+        },
+        {
+          "id": 203,
+          "artistNameEN": "IN SEONG",
+          "artistNameKO": "인성",
+          "softDeletedAt": null
+        },
+        {
+          "id": 204,
+          "artistNameEN": "CHUU",
+          "artistNameKO": "츄",
+          "softDeletedAt": null
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "category": "ACTOR / ACTRESS",
+      "artists": [
+        {
+          "id": 64,
+          "artistNameEN": "KIM MIN-KYU",
+          "artistNameKO": "김민규",
+          "softDeletedAt": null
+        },
+        {
+          "id": 65,
+          "artistNameEN": "NAM JOO-HYUK",
+          "artistNameKO": "남주혁",
+          "softDeletedAt": null
+        },
+        {
+          "id": 66,
+          "artistNameEN": "SONG KANG",
+          "artistNameKO": "송강",
+          "softDeletedAt": null
+        },
+        {
+          "id": 67,
+          "artistNameEN": "SUZY",
+          "artistNameKO": "수지",
+          "softDeletedAt": null
+        },
+        {
+          "id": 70,
+          "artistNameEN": "PARK BO-GUM",
+          "artistNameKO": "박보검",
+          "softDeletedAt": null
+        },
+        {
+          "id": 72,
+          "artistNameEN": "PARK JI HOON",
+          "artistNameKO": "박지훈",
+          "softDeletedAt": null
+        },
+        {
+          "id": 76,
+          "artistNameEN": "GO YOUN-JUNG",
+          "artistNameKO": "고윤정",
+          "softDeletedAt": null
+        },
+        {
+          "id": 83,
+          "artistNameEN": "PARK GYU YOUNG",
+          "artistNameKO": "박규영",
+          "softDeletedAt": null
+        },
+        {
+          "id": 84,
+          "artistNameEN": "LEE JUNG JAE",
+          "artistNameKO": "이정재",
+          "softDeletedAt": null
+        },
+        {
+          "id": 85,
+          "artistNameEN": "KIM YOU JUNG",
+          "artistNameKO": "김유정",
+          "softDeletedAt": null
+        },
+        {
+          "id": 88,
+          "artistNameEN": "HAN SO HEE",
+          "artistNameKO": "한소희",
+          "softDeletedAt": null
+        },
+        {
+          "id": 89,
+          "artistNameEN": "JEON DO YEON",
+          "artistNameKO": "전도연",
+          "softDeletedAt": null
+        },
+        {
+          "id": 90,
+          "artistNameEN": "AHN HYO SEOP",
+          "artistNameKO": "안효섭",
+          "softDeletedAt": null
+        },
+        {
+          "id": 96,
+          "artistNameEN": "SO JISUB",
+          "artistNameKO": "소지섭",
+          "softDeletedAt": null
+        },
+        {
+          "id": 103,
+          "artistNameEN": "LEE MIN HO",
+          "artistNameKO": "이민호",
+          "softDeletedAt": null
+        },
+        {
+          "id": 104,
+          "artistNameEN": "KIM SEON HO",
+          "artistNameKO": "김선호",
+          "softDeletedAt": null
+        },
+        {
+          "id": 106,
+          "artistNameEN": "BYEON WOO SEOK",
+          "artistNameKO": "변우석",
+          "softDeletedAt": null
+        },
+        {
+          "id": 108,
+          "artistNameEN": "BAE DOONA",
+          "artistNameKO": "배두나",
+          "softDeletedAt": null
+        },
+        {
+          "id": 109,
+          "artistNameEN": "SHIN HYUNJI",
+          "artistNameKO": "신현지",
+          "softDeletedAt": null
+        },
+        {
+          "id": 111,
+          "artistNameEN": "JUN JI HYUN",
+          "artistNameKO": "전지현",
+          "softDeletedAt": null
+        },
+        {
+          "id": 114,
+          "artistNameEN": "LEE JIN UK",
+          "artistNameKO": "이진욱",
+          "softDeletedAt": null
+        },
+        {
+          "id": 124,
+          "artistNameEN": "YOONA",
+          "artistNameKO": "임윤아",
+          "softDeletedAt": null
+        },
+        {
+          "id": 125,
+          "artistNameEN": "AHN BO HYUN",
+          "artistNameKO": "안보현",
+          "softDeletedAt": null
+        },
+        {
+          "id": 127,
+          "artistNameEN": "CHA EUNWOO",
+          "artistNameKO": "차은우",
+          "softDeletedAt": null
+        },
+        {
+          "id": 129,
+          "artistNameEN": "JUN JONG SEO",
+          "artistNameKO": "전종서",
+          "softDeletedAt": null
+        },
+        {
+          "id": 130,
+          "artistNameEN": "KO HYUN JUNG",
+          "artistNameKO": "고현정",
+          "softDeletedAt": null
+        },
+        {
+          "id": 134,
+          "artistNameEN": "LEE JONG SEOK",
+          "artistNameKO": "이종석",
+          "softDeletedAt": null
+        },
+        {
+          "id": 143,
+          "artistNameEN": "SON HEUNG MIN",
+          "artistNameKO": "손흥민",
+          "softDeletedAt": null
+        },
+        {
+          "id": 144,
+          "artistNameEN": "LEE BYUNG HUN",
+          "artistNameKO": "이병헌",
+          "softDeletedAt": null
+        },
+        {
+          "id": 145,
+          "artistNameEN": "JANG DONG YOON",
+          "artistNameKO": "장동윤",
+          "softDeletedAt": null
+        },
+        {
+          "id": 148,
+          "artistNameEN": "HAN HYO JOO",
+          "artistNameKO": "한효주",
+          "softDeletedAt": null
+        },
+        {
+          "id": 149,
+          "artistNameEN": "SONG HYE KYO",
+          "artistNameKO": "송혜교",
+          "softDeletedAt": null
+        },
+        {
+          "id": 152,
+          "artistNameEN": "LEE YOUNG AE",
+          "artistNameKO": "이영애",
+          "softDeletedAt": null
+        },
+        {
+          "id": 165,
+          "artistNameEN": "KO SO YOUNG",
+          "artistNameKO": "고소영",
+          "softDeletedAt": null
+        },
+        {
+          "id": 166,
+          "artistNameEN": "KIM WOO BIN",
+          "artistNameKO": "김우빈",
+          "softDeletedAt": null
+        },
+        {
+          "id": 168,
+          "artistNameEN": "KIM TAE RI",
+          "artistNameKO": "김태리",
+          "softDeletedAt": null
+        },
+        {
+          "id": 169,
+          "artistNameEN": "HYUN BIN",
+          "artistNameKO": "현빈",
+          "softDeletedAt": null
+        },
+        {
+          "id": 170,
+          "artistNameEN": "LEE JOON GI",
+          "artistNameKO": "이준기",
+          "softDeletedAt": null
+        },
+        {
+          "id": 182,
+          "artistNameEN": "LEE JUNHO",
+          "artistNameKO": "이준호",
+          "softDeletedAt": null
+        },
+        {
+          "id": 187,
+          "artistNameEN": "SHIN MINA",
+          "artistNameKO": "신민아",
+          "softDeletedAt": null
+        },
+        {
+          "id": 188,
+          "artistNameEN": "LEE CHAE MIN",
+          "artistNameKO": "이채민",
+          "softDeletedAt": null
+        },
+        {
+          "id": 192,
+          "artistNameEN": "SEO KANG JUN",
+          "artistNameKO": "서강준",
+          "softDeletedAt": null
+        },
+        {
+          "id": 193,
+          "artistNameEN": "LEE DONG WOOK",
+          "artistNameKO": "이동욱",
+          "softDeletedAt": null
+        },
+        {
+          "id": 195,
+          "artistNameEN": "YIM SI WAN",
+          "artistNameKO": "임시완",
+          "softDeletedAt": null
+        },
+        {
+          "id": 200,
+          "artistNameEN": "KIM HYE YOON",
+          "artistNameKO": "김혜윤",
+          "softDeletedAt": null
+        },
+        {
+          "id": 201,
+          "artistNameEN": "HYERI",
+          "artistNameKO": "혜리",
+          "softDeletedAt": null
+        },
+        {
+          "id": 207,
+          "artistNameEN": "LEE SOO HYUK",
+          "artistNameKO": "이수혁",
+          "softDeletedAt": null
+        }
+      ]
+    }
+  ]
+}
