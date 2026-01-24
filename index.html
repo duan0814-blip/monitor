@@ -3,207 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ITZY Real-time Sales Monitor</title>
+    <title>ITZY 銷量監控門戶</title>
     <style>
-        :root {
-            --primary: #bb86fc;
-            --secondary: #03dac6;
-            --bg: #121212;
-            --surface: #1e1e1e;
-            --error: #cf6679;
+        :root { --primary: #bb86fc; --bg: #121212; --card: #1e1e1e; }
+        body { font-family: sans-serif; background: var(--bg); color: white; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
+        .portal-container { width: 100%; max-width: 600px; }
+        .site-title { text-align: center; color: var(--primary); letter-spacing: 4px; margin-bottom: 40px; }
+        .section-label { font-size: 12px; color: #666; text-transform: uppercase; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 5px; }
+        .product-card { 
+            background: var(--card); border-radius: 15px; padding: 20px; margin-bottom: 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            border: 1px solid #333; transition: 0.3s; cursor: pointer;
         }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg);
-            color: #ffffff;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-        }
-
-        .dashboard {
-            width: 100%;
-            max-width: 500px;
-            padding: 20px;
-        }
-
-        header {
-            text-align: center;
-            padding: 30px 0;
-        }
-
-        h1 {
-            font-size: 24px;
-            letter-spacing: 2px;
-            color: var(--primary);
-            margin: 0;
-            text-transform: uppercase;
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            font-size: 10px;
-            background: rgba(3, 218, 198, 0.1);
-            color: var(--secondary);
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin-top: 10px;
-            border: 1px solid var(--secondary);
-        }
-
-        .pulse {
-            width: 6px;
-            height: 6px;
-            background: var(--secondary);
-            border-radius: 50%;
-            margin-right: 8px;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(1.2); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        .rank-container {
-            display: grid;
-            gap: 16px;
-        }
-
-        .card {
-            background: var(--surface);
-            border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #333;
-            transition: transform 0.2s ease;
-        }
-
-        .card:hover { transform: translateX(5px); }
-
-        .rank-num {
-            font-size: 20px;
-            font-weight: 800;
-            width: 40px;
-            color: #444;
-        }
-
-        .info { flex-grow: 1; }
-
-        .name-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-
-        .member-name { font-weight: 600; font-size: 16px; }
-        .qty { color: var(--error); font-weight: bold; font-family: 'Courier New', monospace; }
-
-        .progress-bg {
-            height: 4px;
-            background: #333;
-            border-radius: 2px;
-            width: 100%;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 2px;
-            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .card.top-1 { border: 1px solid var(--primary); background: rgba(187, 134, 252, 0.05); }
-        .card.top-1 .rank-num { color: var(--primary); }
-
-        footer {
-            text-align: center;
-            font-size: 10px;
-            color: #666;
-            margin-top: 40px;
-            letter-spacing: 1px;
-        }
+        .product-card:hover { border-color: var(--primary); transform: translateY(-3px); }
+        .product-info h3 { margin: 0; font-size: 16px; color: #e0e0e0; }
+        .product-info p { margin: 5px 0 0; font-size: 12px; color: #777; }
+        .btn-view { background: var(--primary); color: #000; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 12px; }
     </style>
 </head>
 <body>
 
-<div class="dashboard">
-    <header>
-        <h1>ITZY MONITOR</h1>
-        <div class="status-badge"><span class="pulse"></span>LIVE UPDATING</div>
+<div class="portal-container">
+    <header class="site-title">
+        <h1>K-MONSTAR MONITOR</h1>
     </header>
 
-    <div id="rank-list" class="rank-container">
+    <div class="section-label">ACTIVE EVENTS / 活動中產品</div>
+
+    <div class="product-card" onclick="location.href='report.html?id=94019a1d-10c6-40df-9bb6-15fce8a72b54'">
+        <div class="product-info">
+            <h3>TUNNEL VISION [TAIPEI 1:1 PHOTO]</h3>
+            <p>Target: K-MONSTAR Global</p>
         </div>
+        <button class="btn-view">查看戰報</button>
+    </div>
 
-    <footer>
-        LAST SYNC: <span id="sync-time">---</span><br>
-        ENGINEER MODE V4.0 // PRODUCTION SERVER
-    </footer>
-</div>
-
-<script>
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ0rAQMNppJpAL6oSUnkYvwoG-Depb5SxKqrLeQ5wLqA83Y3pCcGyC43KY-wNUocldItAl9z2LBNv1Y/pub?output=csv';
-
-    async function updateDashboard() {
-        try {
-            const res = await fetch(`${CSV_URL}&t=${Date.now()}`);
-            const data = await res.text();
-            const rows = data.split(/\r?\n/).slice(1);
-            
-            const stats = rows.reduce((acc, row) => {
-                const [time, name, prev, curr, diff] = row.split(',').map(s => s?.replace(/"/g, '').trim());
-                if (name && diff) {
-                    acc[name] = (acc[name] || 0) + parseInt(diff);
-                }
-                return acc;
-            }, {});
-
-            render(stats);
-        } catch (e) {
-            console.error("Deploy Error:", e);
-            // 靜默失敗，等待下一次自動重試
-        }
-    }
-
-    function render(stats) {
-        const sorted = Object.entries(stats)
-            .map(([name, qty]) => ({ name, qty }))
-            .sort((a, b) => b.qty - a.qty);
-
-        const container = document.getElementById('rank-list');
-        const max = sorted[0]?.qty || 1;
-
-        container.innerHTML = sorted.map((item, i) => `
-            <div class="card ${i === 0 ? 'top-1' : ''}">
-                <div class="rank-num">${(i + 1).toString().padStart(2, '0')}</div>
-                <div class="info">
-                    <div class="name-row">
-                        <span class="member-name">${item.name}</span>
-                        <span class="qty">${item.qty.toLocaleString()} <small>PCS</small></span>
-                    </div>
-                    <div class="progress-bg">
-                        <div class="progress-fill" style="width: ${(item.qty/max)*100}%"></div>
-                    </div>
-                </div>
-            </div>
-        `).join('');
-
-        document.getElementById('sync-time').innerText = new Date().toLocaleTimeString();
-    }
-
-    // 每 5 秒執行一次自動監控
-    updateDashboard();
-    setInterval(updateDashboard, 5000);
-</script>
+    </div>
 
 </body>
 </html>
