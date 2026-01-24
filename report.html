@@ -1,56 +1,23 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ITZY 銷量實時戰報 - 詳情頁</title>
-    <style>
-        :root { --primary: #bb86fc; --secondary: #03dac6; --bg: #121212; --surface: #1e1e1e; }
-        body { font-family: sans-serif; background: var(--bg); color: white; margin: 0; display: flex; justify-content: center; padding: 20px; }
-        .dashboard { width: 100%; max-width: 500px; text-align: center; }
-        header { padding: 30px 0; }
-        h1 { color: var(--primary); font-size: 22px; letter-spacing: 1px; margin-bottom: 5px; }
-        .status { font-size: 10px; color: var(--secondary); margin-bottom: 20px; }
-        .card { background: var(--surface); border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid #333; display: flex; align-items: center; text-align: left; }
-        .rank-num { width: 40px; font-weight: bold; color: #555; font-size: 18px; }
-        .info { flex-grow: 1; }
-        .name-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
-        .qty { color: #ff4d4d; font-weight: bold; }
-        .progress-bg { height: 4px; background: #333; border-radius: 2px; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); transition: width 1s ease; }
-        footer { font-size: 10px; color: #666; margin-top: 30px; }
-    </style>
-</head>
-<body>
-
-<div class="dashboard">
-    <header>
-        <h1 id="product-title">CONNECTING...</h1>
-        <div class="status">● LIVE DATA FROM K-MONSTAR API</div>
-    </header>
-
-    <div id="rank-list">
-        <div style="padding: 50px; color: #666;">📡 正在同步 API 數據...</div>
-    </div>
-
-    <footer>
-        LAST SYNC: <span id="sync-time">---</span>
-    </footer>
-</div>
-
 <script>
-    // 1. 自動從網址獲取 ID
-    const params = new URLSearchParams(window.location.search);
-    const eventId = params.get('id') || '94019a1d-10c6-40df-9bb6-15fce8a72b54'; 
+    // 1. 設定與變數初始化
+    const urlParams = new URLSearchParams(window.location.search);
+    const eventId = urlParams.get('id') || '94019a1d-10c6-40df-9bb6-15fce8a72b54'; 
     const API_URL = `https://kmonstar.org/api/v1/event/detail/${eventId}`;
 
+    // 2. 核心更新函數 (包含代理邏輯)
     async function updateDashboard() {
         try {
-            console.log("Fetching API from:", API_URL);
-            const res = await fetch(API_URL);
-            if (!res.ok) throw new Error("API連線失敗");
+            // 使用 allorigins 轉接頭來繞過 CORS 限制
+            const proxyUrl = 'https://api.allorigins.win/get?url=';
+            const targetUrl = encodeURIComponent(API_URL);
             
-            const json = await res.json();
+            console.log("正在透過代理請求數據...");
+            const res = await fetch(`${proxyUrl}${targetUrl}`);
+            
+            if (!res.ok) throw new Error("代理伺服器連線失敗");
+            
+            const wrapper = await res.json();
+            const json = JSON.parse(wrapper.contents);
             
             // 更新標題
             const fullTitle = json.data.product.title;
@@ -60,12 +27,11 @@
             const options = json.data.optionList;
             const stats = options.reduce((acc, opt) => {
                 const rawName = opt.optionNameValue1; 
-                // 這裡做個防呆：如果名字裡有空格，取最後一個（通常是英文名）
                 const name = rawName.includes(' ') ? rawName.split(' ').pop() : rawName;
                 const qty = opt.salesQuantity || 0;
                 
                 if (name) {
-                    acc[name] = qty;
+                    acc[name] = (acc[name] || 0) + qty;
                 }
                 return acc;
             }, {});
@@ -73,10 +39,16 @@
             render(stats);
         } catch (e) {
             console.error("Fetch Error:", e);
-            document.getElementById('rank-list').innerHTML = `<div style="color:#ff4d4d; padding:20px;">❌ 無法獲取 API 數據<br><small>可能是 CORS 阻擋，我們稍後可以用代理伺服器修正</small></div>`;
+            document.getElementById('rank-list').innerHTML = `
+                <div style="color:#ff4d4d; padding:20px; text-align:center;">
+                    ❌ API 請求失敗<br>
+                    <small>${e.message}</small><br>
+                    <button onclick="updateDashboard()" style="margin-top:10px;">點擊手動重試</button>
+                </div>`;
         }
     }
 
+    // 3. 渲染函數
     function render(stats) {
         const sorted = Object.entries(stats).map(([name, qty]) => ({ name, qty })).sort((a, b) => b.qty - a.qty);
         const container = document.getElementById('rank-list');
@@ -97,9 +69,7 @@
         document.getElementById('sync-time').innerText = new Date().toLocaleTimeString();
     }
 
-    updateDashboard();
-    setInterval(updateDashboard, 30000); // 減少請求頻率至 30 秒，避免被 API 封鎖
+    // 4. 啟動腳本
+    updateDashboard(); // 網頁打開後立即執行一次
+    setInterval(updateDashboard, 30000); // 每 30 秒自動更新一次
 </script>
-
-</body>
-</html>
