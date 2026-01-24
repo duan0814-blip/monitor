@@ -1,26 +1,4 @@
-name: Update ITZY Data
-
-on:
-  schedule:
-    - cron: '*/30 * * * *' # 每 30 分鐘自動執行一次
-  workflow_dispatch: # 允許你手動點擊按鈕執行
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Fetch API Data
+- name: Fetch Product List
         run: |
-          # 使用 curl 抓取資料並存成 data.json
-          curl -s "https://kmonstar.org/api/v1/event/detail/94019a1d-10c6-40df-9bb6-15fce8a72b54" > data.json
-
-      - name: Commit and Push
-        run: |
-          git config --global user.name "GitHub Action"
-          git config --global user.email "action@github.com"
-          git add data.json
-          git commit -m "Auto update data.json" || exit 0
-          git push
+          # 抓取產品列表 API 並存成 list.json
+          curl -s "https://kmonstar.org/api/v1/product/list?page=1&limit=20&categoryId=4" > list.json
