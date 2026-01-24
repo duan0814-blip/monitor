@@ -43,49 +43,28 @@
     const API_URL = `https://kmonstar.org/api/v1/event/detail/${eventId}`;
 
     async function updateDashboard() {
-        const container = document.getElementById('rank-list');
-        const statusTag = document.getElementById('status-tag');
-
         try {
-            // 使用 allorigins 搭配時間戳避免快取崩潰
-            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(API_URL)}&_=${Date.now()}`;
+            // 直接讀取你倉庫裡的 data.json [cite: 2025-12-17]
+            // 加個時間戳 _=${Date.now()} 是為了防止 GitHub Pages 快取舊資料
+            const res = await fetch(`data.json?_=${Date.now()}`);
+            const json = await res.json();
             
-            const res = await fetch(proxyUrl);
-            if (!res.ok) throw new Error("代理連線失敗");
-            
-            const data = await res.json();
-            
-            // 關鍵檢查：AllOrigins 可能抓到空內容或是 HTML
-            if (!data.contents || data.contents.includes('<!DOCTYPE')) {
-                throw new Error("K-monstar 拒絕了存取請求 (防火牆攔截)");
-            }
+            // 剩下的解析邏輯完全不變
+            const fullTitle = json.data.product.title;
+            document.getElementById('product-title').innerText = fullTitle.split('|')[1]?.trim() || fullTitle;
 
-            const json = JSON.parse(data.contents);
-            
-            // 解析數據
             const options = json.data.optionList;
             const stats = options.reduce((acc, opt) => {
-                const rawName = opt.optionNameValue1 || "Unknown"; 
+                const rawName = opt.optionNameValue1; 
                 const name = rawName.includes(' ') ? rawName.split(' ').pop() : rawName;
                 const qty = opt.salesQuantity || 0;
-                acc[name] = (acc[name] || 0) + qty;
+                if (name) acc[name] = (acc[name] || 0) + qty;
                 return acc;
             }, {});
 
-            document.getElementById('product-title').innerText = json.data.product.title.split('|')[1] || "ITZY MONITOR";
-            statusTag.innerText = "● LIVE UPDATING";
             render(stats);
-
         } catch (e) {
-            console.error(e);
-            statusTag.innerText = "● OFFLINE";
-            container.innerHTML = `
-                <div class="error-msg">
-                    <p>⚠️ 無法從 K-monstar 獲取即時數據</p>
-                    <p style="font-size:11px; color:#888;">原因：${e.message}</p>
-                    <button onclick="location.reload()" style="background:#333; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">手動重試</button>
-                </div>
-            `;
+            console.error("讀取本地數據失敗:", e);
         }
     }
 
