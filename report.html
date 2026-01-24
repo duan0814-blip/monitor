@@ -1,50 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITZY 銷量實時戰報</title>
+    <style>
+        :root { --primary: #bb86fc; --secondary: #03dac6; --bg: #121212; --surface: #1e1e1e; }
+        body { font-family: sans-serif; background: var(--bg); color: white; margin: 0; display: flex; justify-content: center; padding: 20px; }
+        .dashboard { width: 100%; max-width: 500px; text-align: center; }
+        header { padding: 20px 0; }
+        h1 { color: var(--primary); font-size: 20px; }
+        .card { background: var(--surface); border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid #333; display: flex; align-items: center; text-align: left; }
+        .rank-num { width: 40px; font-weight: bold; color: #555; }
+        .info { flex-grow: 1; }
+        .name-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .qty { color: #ff4d4d; font-weight: bold; }
+        .progress-bg { height: 4px; background: #333; border-radius: 2px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); transition: width 0.5s; }
+        .error-msg { background: rgba(255,0,0,0.1); border: 1px solid red; padding: 15px; border-radius: 10px; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <header>
+        <h1 id="product-title">ITZY MONITOR</h1>
+        <div id="status-tag" style="font-size:10px; color:var(--secondary);">● 等待數據中...</div>
+    </header>
+
+    <div id="rank-list">
+        <div style="padding: 40px; color: #666;">🔄 正在嘗試建立安全連線...</div>
+    </div>
+
+    <footer style="font-size:10px; color:#444; margin-top:30px;">
+        SYNC: <span id="sync-time">---</span>
+    </footer>
+</div>
+
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const eventId = urlParams.get('id') || '94019a1d-10c6-40df-9bb6-15fce8a72b54'; 
     const API_URL = `https://kmonstar.org/api/v1/event/detail/${eventId}`;
 
     async function updateDashboard() {
-        try {
-            // 改用 corsproxy.io，它處理 K-monstar 這種防火牆比較強
-            const proxyUrl = 'https://corsproxy.io/?';
-            const targetUrl = encodeURIComponent(API_URL);
-            
-            console.log("正在發起跨域請求...");
-            const res = await fetch(`${proxyUrl}${targetUrl}`);
-            
-            if (!res.ok) throw new Error("代理伺服器連線失敗");
+        const container = document.getElementById('rank-list');
+        const statusTag = document.getElementById('status-tag');
 
-            // 先讀取成文字，檢查一下是不是 HTML
-            const text = await res.text();
-            if (text.trim().startsWith('<!DOCTYPE')) {
-                throw new Error("API 被 K-monstar 防火牆擋住了，返回了網頁而非數據。");
+        try {
+            // 使用 allorigins 搭配時間戳避免快取崩潰
+            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(API_URL)}&_=${Date.now()}`;
+            
+            const res = await fetch(proxyUrl);
+            if (!res.ok) throw new Error("代理連線失敗");
+            
+            const data = await res.json();
+            
+            // 關鍵檢查：AllOrigins 可能抓到空內容或是 HTML
+            if (!data.contents || data.contents.includes('<!DOCTYPE')) {
+                throw new Error("K-monstar 拒絕了存取請求 (防火牆攔截)");
             }
 
-            const json = JSON.parse(text); // 確定不是網頁後再解析
+            const json = JSON.parse(data.contents);
             
-            // 更新標題
-            const fullTitle = json.data.product.title;
-            document.getElementById('product-title').innerText = fullTitle.split('|')[1]?.trim() || fullTitle;
-
-            // 統計銷量
+            // 解析數據
             const options = json.data.optionList;
             const stats = options.reduce((acc, opt) => {
-                const rawName = opt.optionNameValue1; 
+                const rawName = opt.optionNameValue1 || "Unknown"; 
                 const name = rawName.includes(' ') ? rawName.split(' ').pop() : rawName;
                 const qty = opt.salesQuantity || 0;
-                if (name) acc[name] = (acc[name] || 0) + qty;
+                acc[name] = (acc[name] || 0) + qty;
                 return acc;
             }, {});
 
+            document.getElementById('product-title').innerText = json.data.product.title.split('|')[1] || "ITZY MONITOR";
+            statusTag.innerText = "● LIVE UPDATING";
             render(stats);
+
         } catch (e) {
-            console.error("Fetch Error:", e);
-            document.getElementById('rank-list').innerHTML = `
-                <div style="color:#ff4d4d; padding:20px; text-align:center;">
-                    ❌ 數據抓取失敗<br>
-                    <small>${e.message}</small><br>
-                    <button onclick="location.reload()" style="margin-top:10px; padding:5px 15px;">重新整理網頁</button>
-                </div>`;
+            console.error(e);
+            statusTag.innerText = "● OFFLINE";
+            container.innerHTML = `
+                <div class="error-msg">
+                    <p>⚠️ 無法從 K-monstar 獲取即時數據</p>
+                    <p style="font-size:11px; color:#888;">原因：${e.message}</p>
+                    <button onclick="location.reload()" style="background:#333; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">手動重試</button>
+                </div>
+            `;
         }
     }
 
@@ -59,7 +100,7 @@
                 <div class="info">
                     <div class="name-row">
                         <span>${item.name}</span>
-                        <span class="qty">${item.qty.toLocaleString()} <small>PCS</small></span>
+                        <span class="qty">${item.qty.toLocaleString()}</span>
                     </div>
                     <div class="progress-bg"><div class="progress-fill" style="width:${(item.qty/max)*100}%"></div></div>
                 </div>
@@ -69,5 +110,9 @@
     }
 
     updateDashboard();
-    setInterval(updateDashboard, 30000);
+    // 增加刷新時間間隔至 1 分鐘，避免被 API 判定為惡意攻擊
+    setInterval(updateDashboard, 60000);
 </script>
+
+</body>
+</html>
