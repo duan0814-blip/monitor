@@ -128,68 +128,6 @@
         "createdAt": "2026-01-21T04:56:49.388Z",
         "updatedAt": "2026-01-21T06:00:06.000Z",
         "softDeletedAt": null
-      },
-      {
-        "productUuid": "94a26d2a-36f5-4cb8-991e-213ef43d6f09",
-        "title": "(260207) IN SEONG | Crossfade: [OFFLINE FAN SIGN EVENT - TAIPEI]",
-        "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/21/241aa7c7-f9c3-49c9-b101-27de55f3b0b0.jpg",
-        "hasOption": false,
-        "totalSalesQuantity": 0,
-        "statusId": 1,
-        "categoryId": 4,
-        "tags": [
-          "pre",
-          "new"
-        ],
-        "vendor": "FNC ENTERTAINMENT",
-        "optionUuid": "786e97b5-7e86-4de8-b9a9-433bb86898d7",
-        "totalPrice": "29000",
-        "comparePrice": "",
-        "currencyCode": "KRW",
-        "currencySymbol": "원",
-        "nationCode2": "KR",
-        "salesStartAt": null,
-        "salesEndAt": null,
-        "eventType": "FTF",
-        "eventRegion": "TAIPEI",
-        "eventDate": "2026-02-07T00:00:00.000Z",
-        "releaseDate": null,
-        "eventApplyStartAt": "2026-01-21T06:00:00.000Z",
-        "eventApplyEndAt": "2026-01-27T16:00:00.000Z",
-        "createdAt": "2026-01-21T04:48:03.416Z",
-        "updatedAt": "2026-01-21T05:59:59.000Z",
-        "softDeletedAt": null
-      },
-      {
-        "productUuid": "cae95355-9a60-4db3-a8dd-dd3652469e0c",
-        "title": "(260222) CHUU | XO, My Cyberlove [OFFLINE FAN SIGN EVENT - TAIPEI]",
-        "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/19/937de4eb-38f0-4470-92b0-6568d7127350.jpg",
-        "hasOption": false,
-        "totalSalesQuantity": 26,
-        "statusId": 1,
-        "categoryId": 4,
-        "tags": [
-          "pre",
-          "new"
-        ],
-        "vendor": "ATRP Co., Ltd.",
-        "optionUuid": "f0364e9e-497f-48a8-bb40-4962881913c1",
-        "totalPrice": "32000",
-        "comparePrice": "",
-        "currencyCode": "KRW",
-        "currencySymbol": "원",
-        "nationCode2": "KR",
-        "salesStartAt": null,
-        "salesEndAt": null,
-        "eventType": "FTF",
-        "eventRegion": "TAIPEI",
-        "eventDate": "2026-02-22T00:00:00.000Z",
-        "releaseDate": null,
-        "eventApplyStartAt": "2026-01-19T06:00:00.000Z",
-        "eventApplyEndAt": "2026-01-26T16:00:00.000Z",
-        "createdAt": "2026-01-19T05:06:39.724Z",
-        "updatedAt": "2026-01-24T00:27:19.000Z",
-        "softDeletedAt": null
       }
     ]
   }
