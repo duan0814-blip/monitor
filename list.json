@@ -3,7 +3,7 @@
   "message": "Product list search was successful.",
   "statusCode": 200,
   "data": {
-    "total": 6,
+    "total": 398,
     "products": [
       {
         "productUuid": "9297f147-7fa6-4004-bba8-a6e011982e4b",
@@ -45,8 +45,8 @@
         "statusId": 1,
         "categoryId": 4,
         "tags": [
-          "pre",
-          "new"
+          "new",
+          "pre"
         ],
         "vendor": "JYP Entertainment",
         "optionUuid": "94019a1d-10c6-40df-9bb6-15fce8a72b54",
@@ -65,6 +65,68 @@
         "eventApplyEndAt": "2026-01-26T16:00:00.000Z",
         "createdAt": "2026-01-23T04:42:29.722Z",
         "updatedAt": "2026-01-24T00:27:19.000Z",
+        "softDeletedAt": null
+      },
+      {
+        "productUuid": "9d8064b1-b802-43c3-832f-70002a323f0d",
+        "title": "NYLON JAPAN | 2026 APR. | STRAY KIDS LEE KNOW COVER ",
+        "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/22/87632e6b-16a1-4a76-b336-3aa549b822fa.jpg",
+        "hasOption": false,
+        "totalSalesQuantity": 0,
+        "statusId": 1,
+        "categoryId": 50,
+        "tags": [
+          "new",
+          "pre"
+        ],
+        "vendor": "NYLON",
+        "optionUuid": "b93bac56-9588-4f36-a2f3-e9d50fa7e5f6",
+        "totalPrice": "13050",
+        "comparePrice": null,
+        "currencyCode": "KRW",
+        "currencySymbol": "원",
+        "nationCode2": "KR",
+        "salesStartAt": null,
+        "salesEndAt": null,
+        "eventType": null,
+        "eventRegion": null,
+        "eventDate": null,
+        "releaseDate": "2026-03-18T00:00:00.000Z",
+        "eventApplyStartAt": null,
+        "eventApplyEndAt": null,
+        "createdAt": "2026-01-22T06:43:26.969Z",
+        "updatedAt": "2026-01-22T06:43:26.969Z",
+        "softDeletedAt": null
+      },
+      {
+        "productUuid": "8e2ab1e7-f0fd-47c1-afee-da0927178151",
+        "title": "CINE21 | NO.1542 | JUNG ZISO & LEE SOO HYUK & CHA JOO YOUNG COVER ",
+        "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/22/7197aeac-903a-4337-ac05-f0d940b20cf3.jpg",
+        "hasOption": false,
+        "totalSalesQuantity": 0,
+        "statusId": 1,
+        "categoryId": 50,
+        "tags": [
+          "new",
+          "pre"
+        ],
+        "vendor": "CINE21",
+        "optionUuid": "b72c0fbc-5ceb-4acd-978c-d6aca7df1527",
+        "totalPrice": "5000",
+        "comparePrice": null,
+        "currencyCode": "KRW",
+        "currencySymbol": "원",
+        "nationCode2": "KR",
+        "salesStartAt": null,
+        "salesEndAt": null,
+        "eventType": null,
+        "eventRegion": null,
+        "eventDate": null,
+        "releaseDate": "2026-01-26T00:00:00.000Z",
+        "eventApplyStartAt": null,
+        "eventApplyEndAt": null,
+        "createdAt": "2026-01-22T06:34:26.065Z",
+        "updatedAt": "2026-01-22T06:34:26.065Z",
         "softDeletedAt": null
       },
       {
@@ -107,8 +169,8 @@
         "statusId": 1,
         "categoryId": 4,
         "tags": [
-          "pre",
-          "new"
+          "new",
+          "pre"
         ],
         "vendor": "FNC ENTERTAINMENT",
         "optionUuid": "ee149c6e-3fa3-478c-b333-b82198109a25",
@@ -127,6 +189,68 @@
         "eventApplyEndAt": "2026-01-27T16:00:00.000Z",
         "createdAt": "2026-01-21T04:56:49.388Z",
         "updatedAt": "2026-01-21T06:00:06.000Z",
+        "softDeletedAt": null
+      },
+      {
+        "productUuid": "94a26d2a-36f5-4cb8-991e-213ef43d6f09",
+        "title": "(260207) IN SEONG | Crossfade: [OFFLINE FAN SIGN EVENT - TAIPEI]",
+        "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/21/241aa7c7-f9c3-49c9-b101-27de55f3b0b0.jpg",
+        "hasOption": false,
+        "totalSalesQuantity": 0,
+        "statusId": 1,
+        "categoryId": 4,
+        "tags": [
+          "new",
+          "pre"
+        ],
+        "vendor": "FNC ENTERTAINMENT",
+        "optionUuid": "786e97b5-7e86-4de8-b9a9-433bb86898d7",
+        "totalPrice": "29000",
+        "comparePrice": "",
+        "currencyCode": "KRW",
+        "currencySymbol": "원",
+        "nationCode2": "KR",
+        "salesStartAt": null,
+        "salesEndAt": null,
+        "eventType": "FTF",
+        "eventRegion": "TAIPEI",
+        "eventDate": "2026-02-07T00:00:00.000Z",
+        "releaseDate": null,
+        "eventApplyStartAt": "2026-01-21T06:00:00.000Z",
+        "eventApplyEndAt": "2026-01-27T16:00:00.000Z",
+        "createdAt": "2026-01-21T04:48:03.416Z",
+        "updatedAt": "2026-01-21T05:59:59.000Z",
+        "softDeletedAt": null
+      },
+      {
+        "productUuid": "8e041205-4651-4938-a44c-9a8fc70acae4",
+        "title": "Esquire | 2026 JAN. | aespa KARINA COVER",
+        "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/20/2bfaf0cf-a0d3-4e57-9e9e-e7fca8ae51ee.jpg",
+        "hasOption": true,
+        "totalSalesQuantity": 0,
+        "statusId": 1,
+        "categoryId": 35,
+        "tags": [
+          "new",
+          "pre"
+        ],
+        "vendor": "Esquire",
+        "optionUuid": "72f2c71b-0964-4d5b-90f3-dd474af2d1c8",
+        "totalPrice": "12900",
+        "comparePrice": null,
+        "currencyCode": "KRW",
+        "currencySymbol": "원",
+        "nationCode2": "KR",
+        "salesStartAt": null,
+        "salesEndAt": null,
+        "eventType": null,
+        "eventRegion": null,
+        "eventDate": null,
+        "releaseDate": "2026-01-26T00:00:00.000Z",
+        "eventApplyStartAt": null,
+        "eventApplyEndAt": null,
+        "createdAt": "2026-01-20T04:16:01.297Z",
+        "updatedAt": "2026-01-20T04:16:01.297Z",
         "softDeletedAt": null
       }
     ]
