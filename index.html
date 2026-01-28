@@ -1,49 +1,31 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>銷量觀測</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { background-color: #121212; color: #e0e0e0; }
-        .card { background-color: #1e1e1e; transition: transform 0.2s; }
-        .card:hover { transform: translateY(-5px); }
-    </style>
-</head>
-<body class="p-4">
-    <div class="max-w-4xl mx-auto">
-        <header class="text-center py-10">
-            <h1 class="text-4xl font-bold text-purple-400 mb-2">銷量觀測</h1>
-            <p class="text-teal-400 font-medium">數據來源：K-Monstar 國際</p>
-        </header>
-
-        <div id="event-list" class="grid gap-6">
-            <div class="text-center py-10 text-gray-500">正在加載最新活動數據...</div>
-        </div>
-    </div>
-
-    <script>
-        async function loadEvents() {
+async function loadEvents() {
             try {
-                // 讀取你腳本自動更新的 list.json
                 const response = await fetch('list.json?t=' + Date.now());
                 const json = await response.json();
-                const products = json.data.products;
+                
+                // 關鍵修正：相容多種 API 回傳格式
+                const products = json.data?.products || json.products || [];
                 
                 const listContainer = document.getElementById('event-list');
                 listContainer.innerHTML = '';
 
+                if (products.length === 0) throw new Error('No data');
+
                 products.forEach(p => {
+                    // 自動判斷欄位名稱 (有些版本是 name，有些是 productName)
+                    const pName = p.productName || p.name || "未知活動";
+                    const pSales = p.totalSales || p.sales || 0;
+                    const pUuid = p.productUuid || p.id;
+
                     const card = document.createElement('div');
                     card.className = 'card p-6 rounded-xl border border-gray-800 shadow-xl';
                     card.innerHTML = `
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
                             <div class="flex-1">
-                                <h2 class="text-xl font-bold text-white mb-2">${p.productName}</h2>
-                                <p class="text-sm text-gray-400">目前總銷量：<span class="text-yellow-500 font-bold">${p.totalSales}</span></p>
+                                <h2 class="text-xl font-bold text-white mb-2">${pName}</h2>
+                                <p class="text-sm text-gray-400">目前總銷量：<span class="text-yellow-500 font-bold">${pSales}</span></p>
                             </div>
-                            <button onclick="viewDetail('${p.productUuid}')" class="mt-4 md:mt-0 bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-bold transition">
+                            <button onclick="viewDetail('${pUuid}')" class="mt-4 md:mt-0 bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-bold transition">
                                 查看成員戰報
                             </button>
                         </div>
@@ -51,16 +33,7 @@
                     listContainer.appendChild(card);
                 });
             } catch (e) {
-                document.getElementById('event-list').innerHTML = '<div class="text-red-400 text-center">暫無數據，請先使用油猴腳本訪問官網。</div>';
+                console.error(e);
+                document.getElementById('event-list').innerHTML = '<div class="text-red-400 text-center">數據解析失敗，請確認 list.json 內容。</div>';
             }
         }
-
-        function viewDetail(uuid) {
-            // 跳轉到對應的個別 JSON (這是 v12 腳本產生的檔名)
-            window.location.href = `product_${uuid}.json`;
-        }
-
-        loadEvents();
-    </script>
-</body>
-</html>
