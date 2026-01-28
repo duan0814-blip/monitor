@@ -11,8 +11,8 @@
         "statusId": 1,
         "categoryId": 4,
         "tags": [
-          "new",
-          "pre"
+          "pre",
+          "new"
         ],
         "vendor": "ATRP Co., Ltd.",
         "optionUuid": "de9e6098-120e-4014-9f8a-6902b6eeec49",
@@ -31,37 +31,6 @@
         "eventApplyEndAt": "2026-02-03T16:00:00.000Z",
         "createdAt": "2026-01-27T04:24:29.382Z",
         "updatedAt": "2026-01-28T00:22:21.000Z",
-        "softDeletedAt": null
-      },
-      {
-        "productUuid": "45fa94e3-371f-499d-879c-b76d9ac4ded7",
-        "title": "CINE21 | NO.1543 | STRAY KIDS COVER ",
-        "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/26/038268fa-74b0-492b-9712-969cf23ceedd.jpg",
-        "hasOption": false,
-        "totalSalesQuantity": 0,
-        "statusId": 1,
-        "categoryId": 50,
-        "tags": [
-          "pre",
-          "new"
-        ],
-        "vendor": "CINE21",
-        "optionUuid": "764d02f9-74c0-4e49-b9bd-67fcb6023fd7",
-        "totalPrice": "5000",
-        "comparePrice": null,
-        "currencyCode": "KRW",
-        "currencySymbol": "원",
-        "nationCode2": "KR",
-        "salesStartAt": null,
-        "salesEndAt": null,
-        "eventType": null,
-        "eventRegion": null,
-        "eventDate": null,
-        "releaseDate": "2026-02-04T00:00:00.000Z",
-        "eventApplyStartAt": null,
-        "eventApplyEndAt": null,
-        "createdAt": "2026-01-26T06:55:01.303Z",
-        "updatedAt": "2026-01-26T06:55:01.303Z",
         "softDeletedAt": null
       },
       {
@@ -93,6 +62,37 @@
         "eventApplyEndAt": "2026-01-30T15:00:00.000Z",
         "createdAt": "2026-01-26T05:25:27.530Z",
         "updatedAt": "2026-01-28T02:22:27.000Z",
+        "softDeletedAt": null
+      },
+      {
+        "productUuid": "45fa94e3-371f-499d-879c-b76d9ac4ded7",
+        "title": "CINE21 | NO.1543 | STRAY KIDS COVER ",
+        "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/26/038268fa-74b0-492b-9712-969cf23ceedd.jpg",
+        "hasOption": false,
+        "totalSalesQuantity": 0,
+        "statusId": 1,
+        "categoryId": 50,
+        "tags": [
+          "pre",
+          "new"
+        ],
+        "vendor": "CINE21",
+        "optionUuid": "764d02f9-74c0-4e49-b9bd-67fcb6023fd7",
+        "totalPrice": "5000",
+        "comparePrice": null,
+        "currencyCode": "KRW",
+        "currencySymbol": "원",
+        "nationCode2": "KR",
+        "salesStartAt": null,
+        "salesEndAt": null,
+        "eventType": null,
+        "eventRegion": null,
+        "eventDate": null,
+        "releaseDate": "2026-02-04T00:00:00.000Z",
+        "eventApplyStartAt": null,
+        "eventApplyEndAt": null,
+        "createdAt": "2026-01-26T06:55:01.303Z",
+        "updatedAt": "2026-01-26T06:55:01.303Z",
         "softDeletedAt": null
       },
       {
