@@ -3,91 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>銷量觀測 - by Duan</title>
+    <title>銷量觀測</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root { --primary: #bb86fc; --bg: #0a0a0a; --surface: #1a1a1a; }
-        body { font-family: sans-serif; background: var(--bg); color: white; margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { width: 100%; max-width: 600px; }
-        header { text-align: center; padding: 40px 0; }
-        h1 { margin: 0; color: var(--primary); font-size: 28px; }
-        .source-link { color: #03dac6; text-decoration: none; font-size: 14px; }
-        
-        .event-card { background: var(--surface); border-radius: 12px; padding: 20px; margin-bottom: 15px; border: 1px solid #333; }
-        .event-title { font-size: 18px; font-weight: bold; margin-bottom: 10px; line-height: 1.4; }
-        .event-time { font-size: 13px; color: #888; margin-bottom: 20px; }
-        
-        .view-btn { 
-            display: inline-block; background: var(--primary); color: #000; 
-            padding: 10px 25px; border-radius: 25px; text-decoration: none; 
-            font-weight: bold; transition: 0.3s;
-        }
-        .view-btn:hover { opacity: 0.8; transform: scale(1.05); }
+        body { background-color: #121212; color: #e0e0e0; }
+        .card { background-color: #1e1e1e; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
     </style>
 </head>
-<body>
+<body class="p-4">
+    <div class="max-w-4xl mx-auto">
+        <header class="text-center py-10">
+            <h1 class="text-4xl font-bold text-purple-400 mb-2">銷量觀測</h1>
+            <p class="text-teal-400 font-medium">數據來源：K-Monstar 國際</p>
+        </header>
 
-<div class="container">
-    <header>
-        <h1>銷量觀測</h1>
-        <a href="https://kmonstar.org/" target="_blank" class="source-link">數據來源：K-Monstar 國際</a>
-    </header>
-
-    <div id="event-list">
-        <div style="text-align:center; color:#666;">📡 正在確認活動狀態...</div>
+        <div id="event-list" class="grid gap-6">
+            <div class="text-center py-10 text-gray-500">正在加載最新活動數據...</div>
+        </div>
     </div>
-</div>
 
-<script>
-    async function loadEvents() {
-        try {
-            // 讀取由 Actions 抓取的產品列表 [cite: 2025-12-17]
-            const res = await fetch(`list.json?t=${Date.now()}`);
-            const json = await res.json();
-            const now = new Date();
-            
-            // 篩選正在進行中的活動
-            const ongoing = json.data.products.filter(p => {
-                const start = new Date(p.eventApplyStartAt);
-                const end = new Date(p.eventApplyEndAt);
-                return now >= start && now <= end;
-            });
+    <script>
+        async function loadEvents() {
+            try {
+                // 讀取你腳本自動更新的 list.json
+                const response = await fetch('list.json?t=' + Date.now());
+                const json = await response.json();
+                const products = json.data.products;
+                
+                const listContainer = document.getElementById('event-list');
+                listContainer.innerHTML = '';
 
-            render(ongoing);
-        } catch (e) {
-            document.getElementById('event-list').innerHTML = "❌ 無法載入活動列表";
+                products.forEach(p => {
+                    const card = document.createElement('div');
+                    card.className = 'card p-6 rounded-xl border border-gray-800 shadow-xl';
+                    card.innerHTML = `
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                            <div class="flex-1">
+                                <h2 class="text-xl font-bold text-white mb-2">${p.productName}</h2>
+                                <p class="text-sm text-gray-400">目前總銷量：<span class="text-yellow-500 font-bold">${p.totalSales}</span></p>
+                            </div>
+                            <button onclick="viewDetail('${p.productUuid}')" class="mt-4 md:mt-0 bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-bold transition">
+                                查看成員戰報
+                            </button>
+                        </div>
+                    `;
+                    listContainer.appendChild(card);
+                });
+            } catch (e) {
+                document.getElementById('event-list').innerHTML = '<div class="text-red-400 text-center">暫無數據，請先使用油猴腳本訪問官網。</div>';
+            }
         }
-    }
 
-    function render(events) {
-    const container = document.getElementById('event-list');
-    if (events.length === 0) {
-        container.innerHTML = "<div style='text-align:center; padding:50px; color:#888;'>☕ 目前暫無進行中的活動</div>";
-        return;
-    }
+        function viewDetail(uuid) {
+            // 跳轉到對應的個別 JSON (這是 v12 腳本產生的檔名)
+            window.location.href = `product_${uuid}.json`;
+        }
 
-    container.innerHTML = events.map(ev => {
-        // 簡單提取括號內的日期與標題
-        const titleMatch = ev.title.match(/\(([^)]+)\)\s*(.*)/);
-        const dateTag = titleMatch ? titleMatch[1] : 'EVENT';
-        const cleanTitle = titleMatch ? titleMatch[2] : ev.title;
-
-        return `
-            <div class="event-card">
-                <div style="font-size:12px; color:var(--primary); margin-bottom:5px;">📅 活動日期：20${dateTag.substring(0,2)}/${dateTag.substring(2,4)}/${dateTag.substring(4,6)}</div>
-                <div class="event-title">${cleanTitle}</div>
-                <div class="event-time">
-                    🛒 應募截止：${new Date(ev.eventApplyEndAt).toLocaleString()}
-                    <br>📊 目前總銷量：<strong>${ev.totalSalesQuantity}</strong>
-                </div>
-                <a href="report.html?id=${ev.optionUuid}" class="view-btn">查看</a>
-            </div>
-        `;
-    }).join('');
-}
-
-    loadEvents();
-</script>
-
+        loadEvents();
+    </script>
 </body>
-
 </html>
