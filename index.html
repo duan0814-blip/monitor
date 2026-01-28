@@ -19,32 +19,37 @@
         </header>
 
         <div id="event-list" class="grid gap-6">
-            <div class="text-center py-20 text-gray-500 animate-pulse">📡 正在同步最新數據，請稍候...</div>
+            <div id="loading-status" class="text-center py-20 text-gray-500 animate-pulse">📡 正在同步最新數據，請稍候...</div>
         </div>
     </div>
 
     <script>
         async function loadEvents() {
             const listContainer = document.getElementById('event-list');
+            const statusLabel = document.getElementById('loading-status');
+            
             try {
-                // 讀取 list.json 並加上隨機參數防止快取
-                const response = await fetch('list.json?t=' + Date.now());
-                if (!response.ok) throw new Error('無法讀取數據檔案');
+                // 強制讀取當前目錄下的 list.json，並加上隨機數避開快取
+                const url = './list.json?nocache=' + new Date().getTime();
+                console.log('嘗試讀取:', url);
+                
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`HTTP 錯誤! 狀態: ${response.status}`);
                 
                 const json = await response.json();
+                console.log('抓到原始數據:', json);
+
+                // 相容多種 API 結構 (data.products 或直接是 products)
+                const products = json.data?.products || json.products || (Array.isArray(json) ? json : []);
                 
-                // 相容不同版本的 API 結構
-                const products = json.data?.products || json.products || [];
-                
-                if (products.length === 0) {
-                    listContainer.innerHTML = '<div class="text-center py-20 text-gray-400 text-xl">目前暫無活動數據。</div>';
+                if (!products || products.length === 0) {
+                    statusLabel.innerHTML = '⚠️ 檔案內暫無產品數據，請先去官網觸發油猴腳本。';
                     return;
                 }
 
                 listContainer.innerHTML = '';
                 products.forEach(p => {
-                    // 修正關鍵：對接正確的資料欄位
-                    const pName = p.productName || p.name || "未命名活動";
+                    const pName = p.productName || p.name || "未命名商品";
                     const pSales = p.totalSales || p.sales || 0;
                     const pUuid = p.productUuid || p.id || "";
 
@@ -52,7 +57,7 @@
                     card.className = 'card p-6 rounded-2xl shadow-xl flex flex-col md:flex-row justify-between items-center gap-4';
                     card.innerHTML = `
                         <div class="text-center md:text-left flex-1">
-                            <h2 class="text-xl font-bold text-white mb-2 leading-tight">${pName}</h2>
+                            <h2 class="text-xl font-bold text-white mb-2">${pName}</h2>
                             <p class="text-gray-400">目前總銷量：<span class="text-yellow-500 font-mono font-bold text-lg">${pSales}</span></p>
                         </div>
                         <button onclick="viewDetail('${pUuid}')" class="w-full md:w-auto bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl font-black transition-all active:scale-95 shadow-lg">
@@ -62,24 +67,29 @@
                     listContainer.appendChild(card);
                 });
             } catch (e) {
-                console.error('加載錯誤:', e);
-                listContainer.innerHTML = \`
-                    <div class="text-center py-20 bg-red-900/20 rounded-2xl border border-red-800">
-                        <p class="text-red-400 text-lg font-bold mb-2">數據解析失敗</p>
-                        <p class="text-gray-500 text-sm">請確認倉庫中是否存在 list.json 且格式正確。</p>
+                console.error('詳細錯誤報告:', e);
+                statusLabel.innerHTML = `
+                    <div class="bg-red-900/20 p-6 rounded-xl border border-red-800 text-center">
+                        <p class="text-red-400 font-bold mb-2">數據載入失敗</p>
+                        <p class="text-gray-500 text-xs">${e.message}</p>
+                        <button onclick="location.reload()" class="mt-4 text-xs underline text-gray-400">點此手動刷新</button>
                     </div>
-                \`;
+                `;
             }
         }
 
         function viewDetail(uuid) {
             if (!uuid) return alert('找不到商品 ID');
-            // 跳轉至個別商品銷量 JSON 頁面
-            window.location.href = \`product_\${uuid}.json\`;
+            // 跳轉到對應的 JSON 檔案
+            window.location.href = `./product_${uuid}.json`;
         }
 
-        // 頁面加載後執行
-        window.onload = loadEvents;
+        // 確保 DOM 載入後才執行
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadEvents);
+        } else {
+            loadEvents();
+        }
     </script>
 </body>
 </html>
