@@ -8,18 +8,21 @@
     <style>
         body { background-color: #121212; color: #e0e0e0; font-family: sans-serif; }
         .bar-container { background-color: #1e1e1e; border: 1px solid #333; }
-        .bar-fill { transition: width 1s ease-out; height: 100%; border-radius: 4px; }
+        .bar-fill { transition: width 1s cubic-bezier(0.17, 0.67, 0.83, 0.67); height: 100%; border-radius: 4px; }
     </style>
 </head>
 <body class="p-4 md:p-8">
     <div class="max-w-2xl mx-auto">
-        <a href="index.html" class="text-purple-400 hover:text-purple-300 mb-6 inline-block">← 返回列表</a>
+        <a href="index.html" class="text-purple-400 hover:text-purple-300 mb-6 inline-block font-bold">← 返回列表</a>
         
-        <header class="mb-10">
-            <h1 id="prod-name" class="text-2xl md:text-3xl font-bold text-white mb-2">正在載入戰報...</h1>
-            <div class="flex justify-between items-center text-gray-400">
-                <p>總銷量：<span id="total-sales" class="text-yellow-500 font-bold text-xl">0</span></p>
-                <p id="update-time" class="text-xs"></p>
+        <header class="mb-10 bg-gray-800/30 p-6 rounded-2xl border border-gray-700">
+            <h1 id="prod-name" class="text-2xl md:text-3xl font-bold text-white mb-4">正在載入戰報...</h1>
+            <div class="flex justify-between items-end">
+                <div>
+                    <p class="text-gray-400 text-sm mb-1">目前活動總銷量</p>
+                    <p><span id="total-sales" class="text-yellow-500 font-black text-3xl">0</span> <span class="text-xs text-gray-500">張</span></p>
+                </div>
+                <div id="status-tag" class="text-[10px] px-2 py-1 rounded bg-gray-700 text-gray-400">同步中</div>
             </div>
         </header>
 
@@ -29,50 +32,74 @@
 
     <script>
         async function loadDetail() {
-            // 從網址取得 uuid (例如 detail.html?id=xxxx)
             const params = new URLSearchParams(window.location.search);
             const uuid = params.get('id');
-            if (!uuid) return;
+            const container = document.getElementById('member-stats');
+            
+            if (!uuid) {
+                document.getElementById('prod-name').innerText = "無效的商品 ID";
+                return;
+            }
+
+            const fileName = `product_${uuid}.json`;
 
             try {
-                const response = await fetch(`./product_${uuid}.json?t=` + Date.now());
+                // 強制刷新快取抓取檔案
+                const response = await fetch(`./${fileName}?t=` + Date.now());
+                if (!response.ok) throw new Error(`找不到檔案: ${fileName}`);
+                
                 const data = await response.json();
 
-                document.getElementById('prod-name').innerText = data.title || data.name;
-                document.getElementById('total-sales').innerText = data.totalSales || data.total;
+                // 欄位對接 (相容 title/name, totalSales/total)
+                document.getElementById('prod-name').innerText = data.title || data.name || "未命名活動";
+                document.getElementById('total-sales').innerText = data.totalSales || data.total || 0;
+                document.getElementById('status-tag').innerText = "已更新";
+                document.getElementById('status-tag').className = "text-[10px] px-2 py-1 rounded bg-green-900/30 text-green-400";
                 
                 const members = data.members || [];
-                const container = document.getElementById('member-stats');
                 container.innerHTML = '';
 
-                // 計算最大銷量作為比例基準
+                if (members.length === 0) {
+                    container.innerHTML = '<p class="text-center text-gray-500 py-10">此商品暫無成員細節數據</p>';
+                    return;
+                }
+
                 const maxSales = Math.max(...members.map(m => m.sales), 1);
 
                 members.sort((a, b) => b.sales - a.sales).forEach(m => {
                     const percentage = (m.sales / maxSales) * 100;
                     const item = document.createElement('div');
-                    item.className = 'space-y-2';
+                    item.className = 'group';
                     item.innerHTML = `
-                        <div class="flex justify-between text-sm">
-                            <span class="font-bold text-gray-200">${m.name}</span>
-                            <span class="text-purple-400">${m.sales} 張</span>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="font-bold text-gray-200 group-hover:text-purple-400 transition">${m.name}</span>
+                            <span class="text-purple-400 font-mono font-bold">${m.sales} <span class="text-[10px] text-gray-600">張</span></span>
                         </div>
-                        <div class="w-full h-4 bg-gray-800 rounded-full overflow-hidden bar-container">
-                            <div class="bar-fill bg-gradient-to-r from-purple-600 to-teal-400" style="width: 0%" data-w="${percentage}"></div>
+                        <div class="w-full h-3 bg-gray-900 rounded-full overflow-hidden bar-container">
+                            <div class="bar-fill bg-gradient-to-r from-purple-600 to-teal-400 shadow-[0_0_10px_rgba(168,85,247,0.4)]" 
+                                 style="width: 0%" 
+                                 data-w="${percentage}"></div>
                         </div>
                     `;
                     container.appendChild(item);
                 });
 
-                // 觸發動畫
                 setTimeout(() => {
                     document.querySelectorAll('.bar-fill').forEach(bar => {
                         bar.style.width = bar.getAttribute('data-w') + '%';
                     });
-                }, 100);
+                }, 200);
 
             } catch (e) {
-                document.getElementById('prod-name').innerText = "尚未取得該商品詳細數據";
+                console.error(e);
+                document.getElementById('prod-name').innerText = "戰報檔案尚未生成";
+                container.innerHTML = `
+                    <div class="bg-red-900/10 p-6 rounded-2xl border border-red-900/30 text-center">
+                        <p class="text-red-400 text-sm mb-4 font-bold">⚠️ 讀取失敗</p>
+                        <p class="text-gray-500 text-xs mb-2">原因：${e.message}</p>
+                        <p class="text-gray-600 text-[10px]">請確認您已點進官網商品頁，並等待 GitHub 同步成功。</p>
+                    </div>
+                `;
             }
         }
         window.onload = loadDetail;
