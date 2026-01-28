@@ -72,8 +72,8 @@
 
         function viewDetail(uuid) {
             if (!uuid) return alert('找不到商品 ID');
-            // 跳轉到詳情 JSON
-            window.location.href = `./product_${uuid}.json`;
+            // 修改跳轉目標為 detail.html 並帶上 ID
+            window.location.href = `./detail.html?id=${uuid}`;
         }
 
         window.onload = loadEvents;
