@@ -2,86 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REPORT | MEMBER ANALYSIS</title>
+    <title>REPORT | ANALYSIS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { background-color: #050505; font-family: 'Inter', sans-serif; }
-        .progress-bar { height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden; }
-        .progress-fill {
-            height: 100%; background: #0ea5e9; box-shadow: 0 0 10px #0ea5e9;
-            transition: width 1.2s ease-out; width: 0%;
-        }
+        body { background-color: #050505; color: #d4d4d8; font-family: sans-serif; }
+        .bar-bg { height: 6px; background: #18181b; border-radius: 3px; overflow: hidden; }
+        .bar-fill { height: 100%; background: #3b82f6; transition: width 1s; width: 0; }
     </style>
 </head>
-<body class="text-zinc-400 p-6 min-h-screen">
+<body class="p-6 md:p-12">
     <div class="max-w-xl mx-auto">
-        <header class="mb-10 flex justify-between items-start">
-            <button onclick="location.href='index.html'" class="text-[10px] font-black tracking-widest text-zinc-500 hover:text-white uppercase">← BACK</button>
-            <div id="status-tag" class="text-[9px] font-mono text-zinc-700 bg-zinc-900 px-2 py-1 rounded">SCANNING</div>
-        </header>
-
-        <div id="main-content">
-            <section class="mb-12">
-                <h1 id="title" class="text-3xl font-black text-white italic tracking-tighter mb-6 uppercase">Initializing...</h1>
-                <div class="inline-flex flex-col bg-zinc-900 border border-zinc-800 px-6 py-3 rounded-2xl">
-                    <p class="text-[9px] text-zinc-500 font-bold uppercase tracking-widest mb-1">Total Sales</p>
-                    <p id="total" class="text-3xl font-black text-sky-500 font-mono">0</p>
-                </div>
-            </section>
-            <div id="member-list" class="space-y-8"></div>
+        <button onclick="location.href='index.html'" class="text-[10px] font-bold text-zinc-500 mb-8 uppercase tracking-widest">← Back</button>
+        
+        <div id="content">
+            <h1 id="title" class="text-2xl font-black text-white italic mb-2 uppercase tracking-tighter italic">Loading...</h1>
+            <div class="mb-10 text-sky-500 font-mono text-2xl font-black" id="total">0</div>
+            
+            <div id="member-list" class="space-y-6"></div>
         </div>
     </div>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const prodId = urlParams.get('id');
-
-        async function loadDetail() {
-            const listContainer = document.getElementById('member-list');
-            const statusTag = document.getElementById('status-tag');
-            const fileName = `product_${prodId}.json`;
-            
+        const prodId = new URLSearchParams(window.location.search).get('id');
+        async function load() {
             try {
-                const res = await fetch(`${fileName}?v=${Date.now()}`);
-                if (!res.ok) throw new Error(`MISSING_FILE: ${fileName}`);
-                
+                const res = await fetch(`product_${prodId}.json?t=${Date.now()}`);
+                if (!res.ok) throw new Error("Awaiting Sync...");
                 const data = await res.json();
-                statusTag.innerText = 'ONLINE';
+                
                 document.getElementById('title').innerText = data.title;
-                document.getElementById('total').innerText = Number(data.totalSales).toLocaleString();
-
-                const sortedMembers = (data.members || []).sort((a, b) => b.sales - a.sales);
-                const maxSales = Math.max(...sortedMembers.map(m => m.sales), 1);
-
-                listContainer.innerHTML = sortedMembers.map((m, index) => `
+                document.getElementById('total').innerText = data.totalSales.toLocaleString();
+                
+                const members = data.members || [];
+                const max = Math.max(...members.map(m => m.sales), 1);
+                
+                document.getElementById('member-list').innerHTML = members.sort((a,b)=>b.sales-a.sales).map(m => `
                     <div>
-                        <div class="flex justify-between items-end mb-3">
-                            <span class="text-sm font-bold text-zinc-200 uppercase">${m.name}</span>
-                            <span class="text-xs font-black text-white font-mono">${m.sales}</span>
+                        <div class="flex justify-between text-xs font-bold mb-2">
+                            <span class="text-zinc-300 uppercase">${m.name}</span>
+                            <span class="text-white">${m.sales}</span>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${(m.sales/maxSales*100)}%"></div>
-                        </div>
+                        <div class="bar-bg"><div class="bar-fill" style="width: ${(m.sales/max*100)}%"></div></div>
                     </div>
                 `).join('');
-
             } catch (e) {
-                statusTag.innerText = 'OFFLINE';
-                document.getElementById('title').innerText = "AWAITING SYNC...";
-                listContainer.innerHTML = `
-                    <div class="p-8 rounded-3xl border border-dashed border-zinc-800 text-center">
-                        <p class="text-xs text-zinc-500 mb-4 uppercase tracking-widest font-bold text-orange-500">Data File Not Found</p>
-                        <p class="text-[10px] text-zinc-600 leading-relaxed">
-                            System is looking for: <br><span class="text-zinc-400">${fileName}</span><br><br>
-                            Please go to the official product page to trigger synchronization.
-                        </p>
-                    </div>
-                `;
+                document.getElementById('content').innerHTML = `
+                    <div class="text-center py-20 border border-dashed border-zinc-800 rounded-3xl">
+                        <p class="text-zinc-600 font-mono text-[10px] uppercase mb-2">Status: Offline</p>
+                        <p class="text-zinc-400 text-xs">Please go to K-Monstar product page to sync data.</p>
+                        <p class="text-[9px] text-zinc-700 mt-4">ID: ${prodId}</p>
+                    </div>`;
             }
         }
-        loadDetail();
+        load();
     </script>
 </body>
 </html>
