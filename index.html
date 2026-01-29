@@ -2,61 +2,57 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>簽售活動監測站</title>
+    <title>活動銷量監控</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#0a0a0a] text-zinc-100 min-h-screen p-6">
+<body class="bg-[#0f0f0f] text-zinc-200 p-6 min-h-screen">
     <div class="max-w-xl mx-auto">
-        <h1 class="text-3xl font-black text-sky-500 mb-8 italic">MONITOR V1.0</h1>
+        <h1 class="text-2xl font-black text-sky-400 mb-6 uppercase tracking-tighter">Event Monitor</h1>
         
-        <div id="event-list" class="space-y-4">
-            <div class="text-zinc-600 animate-pulse text-center py-10">正在載入數據...</div>
+        <div id="display-area" class="space-y-4">
+            <div class="text-zinc-700 italic text-center py-20">正在連線至數據庫...</div>
         </div>
     </div>
 
     <script>
-        async function updateUI() {
-            // 這裡要在函數內獲取元素，確保 DOM 已加載
-            const listContainer = document.getElementById('event-list');
-            if (!listContainer) return;
+        async function fetchData() {
+            const area = document.getElementById('display-area');
+            if (!area) return; // 安全防護
 
             try {
-                const res = await fetch('list.json?t=' + Date.now());
-                if (!res.ok) throw new Error('File not found');
-                
-                const json = await res.json();
-                const products = json.data?.products?.content || [];
+                // 強制跳過快取抓取最新 JSON
+                const res = await fetch(`list.json?nocache=${Date.now()}`);
+                if (!res.ok) throw new Error("尚未生成數據檔案");
 
-                if (products.length === 0) {
-                    listContainer.innerHTML = '<div class="text-zinc-500 text-center py-10">暫無符合格式的活動資料</div>';
+                const data = await res.json();
+                const list = data.products || [];
+
+                if (list.length === 0) {
+                    area.innerHTML = '<div class="text-center text-zinc-600 border border-dashed border-zinc-800 p-10 rounded-2xl">目前沒有符合括號格式的活動</div>';
                     return;
                 }
 
-                listContainer.innerHTML = products.map(p => `
-                    <div class="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl flex justify-between items-center shadow-2xl">
+                area.innerHTML = list.map(p => `
+                    <div class="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl flex justify-between items-center shadow-xl">
                         <div class="flex-1 pr-4">
-                            <div class="text-sm font-bold leading-tight">${p.title}</div>
-                            <div class="text-xs text-zinc-500 mt-2 font-mono uppercase tracking-tighter">
-                                Sales: <span class="text-amber-500 font-bold text-sm">${p.totalSalesQuantity || 0}</span>
-                            </div>
+                            <div class="text-white font-bold text-sm mb-1">${p.title}</div>
+                            <div class="text-[10px] text-zinc-500 font-mono">UUID: ${p.productUuid.substring(0,8)}...</div>
                         </div>
-                        <button onclick="location.href='detail.html?id=${p.productUuid}'" 
-                                class="bg-sky-600 hover:bg-sky-500 text-white text-[10px] font-black px-4 py-2 rounded-lg transition-colors">
-                            VIEW
-                        </button>
+                        <div class="text-right">
+                            <div class="text-amber-500 font-black text-lg">${p.totalSalesQuantity || 0}</div>
+                            <div class="text-[9px] text-zinc-600 uppercase font-bold">Sales</div>
+                        </div>
                     </div>
                 `).join('');
 
-            } catch (e) {
-                console.error(e);
-                listContainer.innerHTML = '<div class="text-zinc-800 text-center text-xs">等待數據初次同步中...</div>';
+            } catch (err) {
+                area.innerHTML = `<div class="text-zinc-800 text-sm text-center py-10 italic">${err.message}<br>請先去 K-Monstar 首頁重新觸發同步</div>`;
             }
         }
 
-        // 確保頁面載入後才執行
-        window.addEventListener('DOMContentLoaded', updateUI);
-        // 每 30 秒自動更新畫面
-        setInterval(updateUI, 30000);
+        // 啟動與定時更新
+        fetchData();
+        setInterval(fetchData, 30000);
     </script>
 </body>
 </html>
