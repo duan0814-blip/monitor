@@ -103,12 +103,12 @@
         "title": "(260222) CHUU | XO, My Cyberlove [SPECIAL 4CUT PHOTO EVENT - TAIPEI]",
         "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/27/f49fcf21-e067-43fe-9e20-1ce519370a3a.jpg",
         "hasOption": false,
-        "totalSalesQuantity": 3,
+        "totalSalesQuantity": 19,
         "statusId": 1,
         "categoryId": 4,
         "tags": [
-          "pre",
-          "new"
+          "new",
+          "pre"
         ],
         "vendor": "ATRP Co., Ltd.",
         "optionUuid": "de9e6098-120e-4014-9f8a-6902b6eeec49",
@@ -126,7 +126,7 @@
         "eventApplyStartAt": "2026-01-27T06:00:00.000Z",
         "eventApplyEndAt": "2026-02-03T16:00:00.000Z",
         "createdAt": "2026-01-27T04:24:29.382Z",
-        "updatedAt": "2026-01-28T00:22:21.000Z",
+        "updatedAt": "2026-01-29T00:25:16.000Z",
         "softDeletedAt": null
       },
       {
@@ -138,8 +138,8 @@
         "statusId": 1,
         "categoryId": 50,
         "tags": [
-          "new",
-          "pre"
+          "pre",
+          "new"
         ],
         "vendor": "CINE21",
         "optionUuid": "764d02f9-74c0-4e49-b9bd-67fcb6023fd7",
@@ -188,7 +188,7 @@
         "eventApplyStartAt": "2026-01-26T06:00:00.000Z",
         "eventApplyEndAt": "2026-01-30T15:00:00.000Z",
         "createdAt": "2026-01-26T05:25:27.530Z",
-        "updatedAt": "2026-01-28T07:56:01.000Z",
+        "updatedAt": "2026-01-29T00:25:16.000Z",
         "softDeletedAt": null
       },
       {
@@ -200,8 +200,8 @@
         "statusId": 1,
         "categoryId": 24,
         "tags": [
-          "pre",
-          "new"
+          "new",
+          "pre"
         ],
         "vendor": "STARSHIP ENTERTAINMENT",
         "optionUuid": "acacaa7b-1ce2-41e4-b85c-f452a7750fc3",
