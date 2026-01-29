@@ -8,41 +8,36 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
         body { background-color: #050505; font-family: 'Inter', sans-serif; }
-        .data-card {
-            background: linear-gradient(145deg, #0f0f0f 0%, #050505 100%);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .progress-bar {
-            height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden;
-        }
+        .progress-bar { height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden; }
         .progress-fill {
-            height: 100%; background: #3b82f6; box-shadow: 0 0 10px #3b82f6;
-            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%; background: #0ea5e9; box-shadow: 0 0 10px #0ea5e9;
+            transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1); width: 0%;
         }
+        .data-card { background: #0f0f0f; border: 1px solid #1f1f1f; }
     </style>
 </head>
-<body class="text-zinc-400 p-6 min-h-screen">
+<body class="text-zinc-400 p-6 md:p-12 min-h-screen">
     <div class="max-w-xl mx-auto">
         <header class="mb-10 flex justify-between items-start">
-            <button onclick="history.back()" class="text-[10px] font-black tracking-widest text-zinc-500 hover:text-white transition-colors uppercase">← BACK</button>
-            <div id="update-time" class="text-[9px] font-mono text-zinc-700">SCANNING...</div>
+            <button onclick="location.href='index.html'" class="text-[10px] font-black tracking-widest text-zinc-500 hover:text-white transition-colors uppercase">← BACK TO MONITOR</button>
+            <div id="status-tag" class="text-[9px] font-mono text-zinc-700 bg-zinc-900 px-2 py-1 rounded">IDLE</div>
         </header>
 
-        <section class="mb-12">
-            <h1 id="title" class="text-2xl font-black text-white italic tracking-tighter leading-tight mb-4 uppercase">Loading Protocol...</h1>
-            <div class="flex items-center gap-4">
-                <div class="bg-zinc-900 border border-zinc-800 px-4 py-2 rounded-2xl">
-                    <p class="text-[9px] text-zinc-600 font-bold uppercase tracking-widest">Total Volume</p>
-                    <p id="total" class="text-2xl font-black text-white font-mono">000</p>
+        <div id="main-content">
+            <section class="mb-12">
+                <h1 id="title" class="text-3xl font-black text-white italic tracking-tighter leading-tight mb-6 uppercase">Initializing...</h1>
+                <div class="inline-flex flex-col bg-zinc-900 border border-zinc-800 px-6 py-3 rounded-2xl">
+                    <p class="text-[9px] text-zinc-500 font-bold uppercase tracking-[0.2em] mb-1">Total Sales Volume</p>
+                    <p id="total" class="text-3xl font-black text-sky-500 font-mono">0</p>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <div id="member-list" class="space-y-6">
-            </div>
+            <div id="member-list" class="space-y-8">
+                </div>
+        </div>
 
-        <footer class="mt-20 text-center py-10 border-t border-zinc-900">
-            <p class="text-[9px] text-zinc-800 font-mono tracking-[0.4em] uppercase">Confidential Data / Member Analysis Report</p>
+        <footer class="mt-24 text-center py-10 border-t border-zinc-900">
+            <p class="text-[9px] text-zinc-800 font-mono tracking-[0.4em] uppercase">Security Level: Class-A / Sales Report</p>
         </footer>
     </div>
 
@@ -52,55 +47,72 @@
 
         async function loadDetail() {
             const listContainer = document.getElementById('member-list');
-            const timeTag = document.getElementById('update-time');
+            const statusTag = document.getElementById('status-tag');
             
+            if (!prodId) {
+                document.getElementById('title').innerText = "ERROR: NO_ID_PROVIDED";
+                return;
+            }
+
             try {
-                // 強制抓取最新數據
+                // 這裡會嘗試抓取 product_UUID.json
                 const res = await fetch(`product_${prodId}.json?v=${Date.now()}`);
-                if (!res.ok) throw new Error("DATA_NOT_FOUND");
+                
+                if (!res.ok) {
+                    throw new Error("FILE_NOT_FOUND");
+                }
                 
                 const data = await res.json();
-                
-                document.getElementById('title').innerText = data.title;
-                document.getElementById('total').innerText = data.totalSales;
-                timeTag.innerText = 'LAST_UPDATE: ' + (data.updateTime || 'RECENT');
+                statusTag.innerText = 'DATA_SYNC_SUCCESS';
+                statusTag.className = 'text-[9px] font-mono text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded';
 
-                // 排序成員銷量 (由高到低)
-                const sortedMembers = data.members.sort((a, b) => b.sales - a.sales);
+                document.getElementById('title').innerText = data.title;
+                document.getElementById('total').innerText = Number(data.totalSales).toLocaleString();
+
+                // 排序並過濾
+                const members = data.members || [];
+                const sortedMembers = members.sort((a, b) => b.sales - a.sales);
                 const maxSales = Math.max(...sortedMembers.map(m => m.sales), 1);
 
                 listContainer.innerHTML = sortedMembers.map((m, index) => {
                     const percentage = (m.sales / maxSales * 100).toFixed(1);
                     return `
                         <div class="group">
-                            <div class="flex justify-between items-end mb-2">
+                            <div class="flex justify-between items-end mb-3">
                                 <div class="flex items-center gap-3">
-                                    <span class="text-[10px] font-mono text-zinc-700">0${index + 1}</span>
+                                    <span class="text-[10px] font-mono text-zinc-700">${(index + 1).toString().padStart(2, '0')}</span>
                                     <span class="text-sm font-bold text-zinc-200 uppercase tracking-tight">${m.name}</span>
                                 </div>
                                 <span class="text-xs font-black text-white font-mono">${m.sales}</span>
                             </div>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width: 0%" data-width="${percentage}%"></div>
+                                <div class="progress-fill" data-width="${percentage}%"></div>
                             </div>
                         </div>
                     `;
                 }).join('');
 
-                // 延遲觸發動畫效果
+                // 觸發動畫
                 setTimeout(() => {
                     document.querySelectorAll('.progress-fill').forEach(bar => {
                         bar.style.width = bar.getAttribute('data-width');
                     });
-                }, 100);
+                }, 200);
 
             } catch (e) {
+                // 錯誤處理：顯示引導訊息
+                statusTag.innerText = 'SYNC_REQUIRED';
+                document.getElementById('title').innerText = "AWAITING DATA...";
                 listContainer.innerHTML = `
-                    <div class="text-center py-20">
-                        <p class="text-zinc-700 font-mono text-xs uppercase tracking-[0.2em] mb-4 underline">Data Synchronizing...</p>
-                        <p class="text-[10px] text-zinc-800 leading-relaxed px-10">
-                            Please open the product page on the official website <br>to trigger the data transmission protocol.
+                    <div class="data-card p-8 rounded-3xl text-center border-dashed border-zinc-800">
+                        <p class="text-zinc-500 font-mono text-[10px] uppercase tracking-widest mb-4">Protocol: Data Not Found</p>
+                        <p class="text-xs text-zinc-400 leading-relaxed mb-6">
+                            Target JSON file is missing from the repository.<br>
+                            Please visit the <span class="text-sky-500 font-bold">Product Page</span> on the official website to trigger the synchronization script.
                         </p>
+                        <div class="text-[9px] text-zinc-700 font-mono italic">
+                            Expected: product_${prodId}.json
+                        </div>
                     </div>
                 `;
             }
