@@ -2,62 +2,59 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>K-MONSTAR 銷量戰報</title>
+    <title>K-MONSTAR 戰報中心</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#050505] text-zinc-300 p-6 min-h-screen">
+<body class="bg-[#050505] text-zinc-300 p-6 min-h-screen font-sans">
     <div class="max-w-xl mx-auto">
-        <header class="flex justify-between items-end mb-10">
-            <div>
-                <h1 class="text-3xl font-black text-white italic">SALES REPORT</h1>
-                <p class="text-[10px] text-zinc-600 tracking-widest uppercase">Real-time Activity Monitor</p>
-            </div>
-            <button onclick="load()" class="text-[10px] bg-zinc-900 px-3 py-1 rounded-full border border-zinc-800 hover:text-white transition-colors">REFRESH</button>
+        <header class="mb-10 flex justify-between items-center">
+            <h1 class="text-3xl font-black text-white italic tracking-tighter">SALES LIVE</h1>
+            <span class="text-[10px] bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-full text-zinc-500">AUTO-SYNCING</span>
         </header>
 
-        <div id="main-list" class="space-y-4">
-            <div class="text-center py-20 text-zinc-800 animate-pulse">正在讀取最新戰報...</div>
+        <div id="activity-list" class="space-y-4">
+            <div class="text-center py-20 text-zinc-800 animate-pulse">正在解析最新資料結構...</div>
         </div>
     </div>
 
     <script>
-        async function load() {
-            const container = document.getElementById('main-list');
+        async function refresh() {
+            const list = document.getElementById('activity-list');
             try {
-                // 強制跳過快取
-                const res = await fetch(`list.json?nocache=${Date.now()}`);
-                if (!res.ok) throw new Error("尚未發現活動數據");
+                // 強制刷新快取
+                const res = await fetch(`list.json?t=${Date.now()}`);
+                if (!res.ok) throw new Error("尚未生成資料檔");
                 
                 const data = await res.json();
-                const items = data.products || [];
+                const products = data.products || [];
 
-                if (items.length === 0) {
-                    container.innerHTML = '<div class="text-center text-zinc-700 py-10 border border-dashed border-zinc-900 rounded-3xl">請前往官網觸發選單後再回來</div>';
+                if (products.length === 0) {
+                    list.innerHTML = '<div class="text-center text-zinc-700 py-10">目前沒有進行中的 ( ) 活動</div>';
                     return;
                 }
 
-                container.innerHTML = items.map(p => `
-                    <div class="bg-[#0f0f0f] border border-zinc-900 p-6 rounded-[2rem] flex justify-between items-center shadow-2xl transition-all hover:border-sky-900">
-                        <div class="flex-1">
-                            <div class="text-sky-400 text-[10px] font-mono mb-1">ACTIVITY DETECTED</div>
-                            <div class="text-white font-bold text-sm leading-tight">${p.title}</div>
+                list.innerHTML = products.map(p => `
+                    <div class="bg-zinc-900/50 border border-zinc-800 p-6 rounded-[2rem] flex justify-between items-center transition-all hover:border-sky-500">
+                        <div class="flex-1 pr-4">
+                            <div class="text-[10px] text-sky-500 font-bold mb-2 uppercase">Current Event</div>
+                            <div class="text-white font-bold text-sm leading-snug">${p.title}</div>
                         </div>
-                        <div class="text-right ml-4">
+                        <div class="text-right">
                             <div class="text-white font-black text-2xl leading-none">${p.totalSalesQuantity || 0}</div>
-                            <div class="text-[9px] font-bold text-zinc-700 uppercase mt-1">Total Pieces</div>
+                            <div class="text-[10px] text-zinc-600 font-bold mt-1 uppercase">Sold</div>
                             <button onclick="location.href='detail.html?id=${p.productUuid}'" 
-                                    class="mt-3 bg-white text-black text-[9px] font-black px-4 py-2 rounded-xl hover:bg-sky-500 hover:text-white transition-all">
-                                ANALYZE
+                                    class="mt-4 bg-white text-black text-[10px] font-black px-4 py-1.5 rounded-full hover:bg-sky-400 hover:text-white transition-all">
+                                DETAILS
                             </button>
                         </div>
                     </div>
                 `).join('');
             } catch (e) {
-                container.innerHTML = `<div class="text-center text-zinc-700 py-10 italic text-sm">${e.message}<br>請至 K-Monstar 官網首頁重新觸發腳本</div>`;
+                list.innerHTML = `<div class="text-center text-zinc-800 py-10 italic">${e.message}</div>`;
             }
         }
-        load();
-        setInterval(load, 20000);
+        refresh();
+        setInterval(refresh, 20000);
     </script>
 </body>
 </html>
