@@ -1,6 +1,37 @@
 {
-  "lastUpdate": "2026-01-29T05:30:45.289Z",
+  "lastUpdate": "2026-01-29T07:56:37.486Z",
   "products": [
+    {
+      "productUuid": "fe8d90e8-18cc-4385-8b36-0d1869f7e2c7",
+      "title": "(260221) LNGSHOT | SHOT CALLERS [OFFLINE FAN SIGN EVENT - TAIPEI]",
+      "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/29/9bab53d7-af47-4dd6-b4f8-37269bc564ec.jpg",
+      "hasOption": false,
+      "totalSalesQuantity": 2,
+      "statusId": 1,
+      "categoryId": 4,
+      "tags": [
+        "pre",
+        "new"
+      ],
+      "vendor": "MORE VISION",
+      "optionUuid": "afe17d99-fe7d-4fba-8bf6-f68ad274fb92",
+      "totalPrice": "32000",
+      "comparePrice": "",
+      "currencyCode": "KRW",
+      "currencySymbol": "원",
+      "nationCode2": "KR",
+      "salesStartAt": null,
+      "salesEndAt": null,
+      "eventType": "FTF",
+      "eventRegion": "TAIPEI",
+      "eventDate": "2026-02-21T00:00:00.000Z",
+      "releaseDate": null,
+      "eventApplyStartAt": "2026-01-29T06:00:00.000Z",
+      "eventApplyEndAt": "2026-02-04T16:00:00.000Z",
+      "createdAt": "2026-01-29T04:13:03.111Z",
+      "updatedAt": "2026-01-29T06:26:23.000Z",
+      "softDeletedAt": null
+    },
     {
       "productUuid": "e2df94ca-e862-4c26-8366-de4f5a0d2b56",
       "title": "(260222) CHUU | XO, My Cyberlove [SPECIAL 4CUT PHOTO EVENT - TAIPEI]",
@@ -37,7 +68,7 @@
       "title": "(260205) tripleS msnz | Beyond Beauty [VIDEO CALL FAN SIGN EVENT]",
       "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/26/c057d024-5226-41d1-acd8-2b7cecb20be6.jpg",
       "hasOption": true,
-      "totalSalesQuantity": 199,
+      "totalSalesQuantity": 233,
       "statusId": 1,
       "categoryId": 4,
       "tags": [
@@ -60,7 +91,7 @@
       "eventApplyStartAt": "2026-01-26T06:00:00.000Z",
       "eventApplyEndAt": "2026-01-30T15:00:00.000Z",
       "createdAt": "2026-01-26T05:25:27.530Z",
-      "updatedAt": "2026-01-29T00:25:16.000Z",
+      "updatedAt": "2026-01-29T06:25:11.000Z",
       "softDeletedAt": null
     }
   ]
