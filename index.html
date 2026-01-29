@@ -1,30 +1,62 @@
-<script>
-    async function updateUI() {
-        const list = document.getElementById('event-list');
-        try {
-            const res = await fetch('list.json?t=' + Date.now());
-            const json = await res.json();
-            // 讀取 list.json 中的 content
-            const products = json.data?.products?.content || [];
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>簽售活動監測站</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#0a0a0a] text-zinc-100 min-h-screen p-6">
+    <div class="max-w-xl mx-auto">
+        <h1 class="text-3xl font-black text-sky-500 mb-8 italic">MONITOR V1.0</h1>
+        
+        <div id="event-list" class="space-y-4">
+            <div class="text-zinc-600 animate-pulse text-center py-10">正在載入數據...</div>
+        </div>
+    </div>
 
-            if (products.length === 0) {
-                list.innerHTML = '<div class="text-center py-10 text-zinc-600">目前無符合 ( ) 標籤之活動。</div>';
-                return;
-            }
+    <script>
+        async function updateUI() {
+            // 這裡要在函數內獲取元素，確保 DOM 已加載
+            const listContainer = document.getElementById('event-list');
+            if (!listContainer) return;
 
-            list.innerHTML = products.map(p => `
-                <div class="bg-zinc-900 p-5 rounded-2xl flex justify-between items-center mb-3">
-                    <div>
-                        <div class="text-white font-bold">${p.title}</div>
-                        <div class="text-xs text-zinc-500 mt-1">累積銷量: <span class="text-amber-400 font-bold">${p.totalSalesQuantity || p.totalSales || 0}</span></div>
+            try {
+                const res = await fetch('list.json?t=' + Date.now());
+                if (!res.ok) throw new Error('File not found');
+                
+                const json = await res.json();
+                const products = json.data?.products?.content || [];
+
+                if (products.length === 0) {
+                    listContainer.innerHTML = '<div class="text-zinc-500 text-center py-10">暫無符合格式的活動資料</div>';
+                    return;
+                }
+
+                listContainer.innerHTML = products.map(p => `
+                    <div class="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl flex justify-between items-center shadow-2xl">
+                        <div class="flex-1 pr-4">
+                            <div class="text-sm font-bold leading-tight">${p.title}</div>
+                            <div class="text-xs text-zinc-500 mt-2 font-mono uppercase tracking-tighter">
+                                Sales: <span class="text-amber-500 font-bold text-sm">${p.totalSalesQuantity || 0}</span>
+                            </div>
+                        </div>
+                        <button onclick="location.href='detail.html?id=${p.productUuid}'" 
+                                class="bg-sky-600 hover:bg-sky-500 text-white text-[10px] font-black px-4 py-2 rounded-lg transition-colors">
+                            VIEW
+                        </button>
                     </div>
-                    <button onclick="location.href='detail.html?id=${p.productUuid}'" 
-                            class="bg-white text-black text-xs font-bold px-4 py-2 rounded-xl">詳情</button>
-                </div>
-            `).join('');
-        } catch (e) {
-            list.innerHTML = '<div class="text-zinc-700 italic text-sm">正在等待腳本從官網同步 list.json...</div>';
+                `).join('');
+
+            } catch (e) {
+                console.error(e);
+                listContainer.innerHTML = '<div class="text-zinc-800 text-center text-xs">等待數據初次同步中...</div>';
+            }
         }
-    }
-    updateUI();
-</script>
+
+        // 確保頁面載入後才執行
+        window.addEventListener('DOMContentLoaded', updateUI);
+        // 每 30 秒自動更新畫面
+        setInterval(updateUI, 30000);
+    </script>
+</body>
+</html>
