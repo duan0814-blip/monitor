@@ -1,27 +1,53 @@
-<script>
-    async function loadEvents() {
-        try {
-            const res = await fetch('list.json?t=' + Date.now());
-            const json = await res.json();
-            // K-Monstar API 實際結構在 data.products.content 中
-            const products = json.data?.products?.content || []; 
-            const listContainer = document.getElementById('event-list');
-            listContainer.innerHTML = '';
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>K-MONSTAR 銷量觀測站</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white p-8">
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-3xl font-black mb-8 text-sky-400 text-center">簽售活動監測</h1>
+        <div id="event-list" class="space-y-4">
+            <div class="text-center text-zinc-500">正在檢查 (YYMMDD) 格式活動...</div>
+        </div>
+    </div>
 
-            products.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'bg-zinc-900 p-6 rounded-2xl border border-zinc-800 flex justify-between items-center mb-4';
-                card.innerHTML = `
-                    <div>
-                        <h3 class="text-xl font-bold">${p.productName}</h3>
-                        <p class="text-zinc-400">目前總銷量：<span class="text-amber-400 font-bold">${p.totalSales || 0}</span> 張</p>
-                    </div>
-                    <button onclick="location.href='detail.html?id=${p.productUuid}'" 
-                            class="bg-violet-600 px-6 py-2 rounded-xl font-bold">查看成員戰報</button>
-                `;
-                listContainer.appendChild(card);
-            });
-        } catch (e) { console.error(e); }
-    }
-    loadEvents();
-</script>
+    <script>
+        async function loadData() {
+            const container = document.getElementById('event-list');
+            try {
+                const res = await fetch('list.json?t=' + Date.now());
+                const json = await res.json();
+                
+                // 這裡的層級必須完全對應 K-monstar 的 API
+                const items = json.data?.products?.content || [];
+                
+                if (items.length === 0) {
+                    container.innerHTML = '<div class="text-center text-zinc-600">目前沒有符合 (日期) 格式的新活動。</div>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                items.forEach(p => {
+                    const div = document.createElement('div');
+                    div.className = 'bg-zinc-900 p-6 rounded-2xl border border-zinc-800 flex justify-between items-center';
+                    div.innerHTML = `
+                        <div>
+                            <div class="text-xs text-sky-500 font-mono mb-1">EVENT DETECTED</div>
+                            <div class="text-lg font-bold">${p.productName}</div>
+                            <div class="text-zinc-500 text-sm mt-1">累積銷量：<span class="text-white">${p.totalSales}</span></div>
+                        </div>
+                        <button onclick="location.href='detail.html?id=${p.productUuid}'" 
+                                class="bg-white text-black text-sm font-bold px-4 py-2 rounded-lg">詳情</button>
+                    `;
+                    container.appendChild(div);
+                });
+            } catch (e) {
+                container.innerHTML = '數據加載中，請確認 list.json 已同步...';
+            }
+        }
+        loadData();
+    </script>
+</body>
+</html>
