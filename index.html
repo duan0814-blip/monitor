@@ -1,64 +1,27 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <title>銷量觀測站</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-zinc-950 text-white min-h-screen p-8">
-    <div class="max-w-3xl mx-auto">
-        <h1 class="text-4xl font-black text-center mb-2 text-sky-400">銷量觀測</h1>
-        <p class="text-center text-emerald-400 font-mono text-sm mb-12">數據來源：K-MONSTAR 國際</p>
-        
-        <div id="event-list" class="space-y-4">
-            <div class="text-center animate-pulse text-zinc-500">📡 正在同步最新數據，請稍候...</div>
-        </div>
-    </div>
+<script>
+    async function loadEvents() {
+        try {
+            const res = await fetch('list.json?t=' + Date.now());
+            const json = await res.json();
+            // K-Monstar API 實際結構在 data.products.content 中
+            const products = json.data?.products?.content || []; 
+            const listContainer = document.getElementById('event-list');
+            listContainer.innerHTML = '';
 
-    <script>
-        async function loadEvents() {
-            try {
-                // 加個隨機參數防止瀏覽器緩存舊資料
-                const response = await fetch('list.json?t=' + Date.now());
-                const json = await response.json();
-                
-                // 核心修正：抓取 API 回傳的正確路徑
-                const products = json.data?.products || json.products || [];
-                const listContainer = document.getElementById('event-list');
-                listContainer.innerHTML = '';
-
-                if (products.length === 0) {
-                    listContainer.innerHTML = '<div class="text-center py-20 text-zinc-600">目前暫無活動數據</div>';
-                    return;
-                }
-
-                products.forEach(p => {
-                    // 自動對齊欄位：優先取 productName
-                    const pName = p.productName || p.name || "未知商品";
-                    // 抓取「已售銷量」
-                    const pSales = p.totalSales || p.sales || 0;
-                    const pUuid = p.productUuid || p.id;
-
-                    const card = document.createElement('div');
-                    card.className = 'bg-zinc-900 p-6 rounded-2xl border border-zinc-800 hover:border-zinc-700 transition-all shadow-xl flex justify-between items-center';
-                    card.innerHTML = `
-                        <div>
-                            <h3 class="text-xl font-bold mb-1">${pName}</h3>
-                            <p class="text-zinc-400 text-sm">目前總銷量：<span class="text-amber-400 font-bold">${pSales}</span> 張</p>
-                        </div>
-                        <button onclick="location.href='report.html?id=${pUuid}'" 
-                                class="bg-violet-600 hover:bg-violet-500 px-6 py-2 rounded-xl font-bold transition-colors shadow-lg shadow-violet-900/20">
-                            查看成員戰報
-                        </button>
-                    `;
-                    listContainer.appendChild(card);
-                });
-            } catch (e) {
-                console.error(e);
-                document.getElementById('event-list').innerHTML = '<div class="bg-red-900/20 text-red-400 p-4 rounded-xl border border-red-800 text-center">數據讀取失敗，請確認 list.json 是否已生成。</div>';
-            }
-        }
-        loadEvents();
-    </script>
-</body>
-</html>
+            products.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'bg-zinc-900 p-6 rounded-2xl border border-zinc-800 flex justify-between items-center mb-4';
+                card.innerHTML = `
+                    <div>
+                        <h3 class="text-xl font-bold">${p.productName}</h3>
+                        <p class="text-zinc-400">目前總銷量：<span class="text-amber-400 font-bold">${p.totalSales || 0}</span> 張</p>
+                    </div>
+                    <button onclick="location.href='detail.html?id=${p.productUuid}'" 
+                            class="bg-violet-600 px-6 py-2 rounded-xl font-bold">查看成員戰報</button>
+                `;
+                listContainer.appendChild(card);
+            });
+        } catch (e) { console.error(e); }
+    }
+    loadEvents();
+</script>
