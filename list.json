@@ -4,8 +4,8 @@
   "statusCode": 200,
   "data": {
     "total": 408,
-    "products": [
-      {
+    "products": {
+      "0": {
         "productUuid": "f93f49a7-5f69-420a-b8f9-949f823aa3cc",
         "title": "YANG YOSEOP | THE 3rd MINI ALBUM | Unloved Echo",
         "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/28/b05cb814-bf95-415d-9fde-46e98190c685.jpg",
@@ -36,7 +36,7 @@
         "updatedAt": "2026-01-28T05:56:40.241Z",
         "softDeletedAt": null
       },
-      {
+      "1": {
         "productUuid": "50a6841b-41e4-4d9d-97c8-a1d874a5a2ed",
         "title": "YANG YOSEOP | THE 3rd MINI ALBUM | Unloved Echo (Jewel ver.)",
         "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/28/7ba36d95-f3cb-4f87-bb4f-23a136bef5c1.jpg",
@@ -67,7 +67,7 @@
         "updatedAt": "2026-01-28T05:49:56.640Z",
         "softDeletedAt": null
       },
-      {
+      "2": {
         "productUuid": "5ea8c503-efc8-4777-8697-f79a81c04acc",
         "title": "YANG YOSEOP | THE 3rd MINI ALBUM | Unloved Echo (Platform ver.)",
         "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/28/db25541b-7659-4deb-a0e8-ca2d65261e2c.jpg",
@@ -98,7 +98,7 @@
         "updatedAt": "2026-01-28T05:47:07.000Z",
         "softDeletedAt": null
       },
-      {
+      "3": {
         "productUuid": "e2df94ca-e862-4c26-8366-de4f5a0d2b56",
         "title": "(260222) CHUU | XO, My Cyberlove [SPECIAL 4CUT PHOTO EVENT - TAIPEI]",
         "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/27/f49fcf21-e067-43fe-9e20-1ce519370a3a.jpg",
@@ -129,7 +129,7 @@
         "updatedAt": "2026-01-29T00:25:16.000Z",
         "softDeletedAt": null
       },
-      {
+      "4": {
         "productUuid": "45fa94e3-371f-499d-879c-b76d9ac4ded7",
         "title": "CINE21 | NO.1543 | STRAY KIDS COVER ",
         "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/26/038268fa-74b0-492b-9712-969cf23ceedd.jpg",
@@ -160,7 +160,7 @@
         "updatedAt": "2026-01-26T06:55:01.303Z",
         "softDeletedAt": null
       },
-      {
+      "5": {
         "productUuid": "27bc3fb9-e1d5-479a-ba29-8a23bf0d7191",
         "title": "(260205) tripleS msnz | Beyond Beauty [VIDEO CALL FAN SIGN EVENT]",
         "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/26/c057d024-5226-41d1-acd8-2b7cecb20be6.jpg",
@@ -191,7 +191,7 @@
         "updatedAt": "2026-01-29T00:25:16.000Z",
         "softDeletedAt": null
       },
-      {
+      "6": {
         "productUuid": "efbd9ada-df2d-4e90-9ba3-e7add18cb027",
         "title": "IVE | 2ND ALBUM | REVIVE+",
         "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/26/2f3ec950-e005-46ea-b53a-695a17b214dc.jpg",
@@ -222,7 +222,7 @@
         "updatedAt": "2026-01-26T05:12:54.950Z",
         "softDeletedAt": null
       },
-      {
+      "7": {
         "productUuid": "0b0c7568-a32f-4926-bda8-7407fb887804",
         "title": "IVE | 2ND ALBUM | REVIVE+ (LOVED IVE ver.) (LIMITED)",
         "thumbnailUrl": "https://kmonstar-shop-prod.s3.ap-east-1.amazonaws.com/product/thumbnail/image/2026/01/26/2f3ec950-e005-46ea-b53a-695a17b214dc.jpg",
@@ -252,7 +252,8 @@
         "createdAt": "2026-01-26T05:07:13.402Z",
         "updatedAt": "2026-01-26T05:07:13.402Z",
         "softDeletedAt": null
-      }
-    ]
+      },
+      "content": []
+    }
   }
 }
