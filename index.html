@@ -1,86 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K-MONSTAR | SYSTEM MONITOR</title>
+    <title>K-MONSTAR 銷量觀測站</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { background-color: #050505; font-family: 'Inter', sans-serif; }
+        body { background-color: #050505; }
         .event-card {
-            background: linear-gradient(145deg, #111111 0%, #0a0a0a 100%);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .event-card:hover {
-            border-color: rgba(56, 189, 248, 0.4);
-            transform: translateY(-2px);
-            box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+        .img-container {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .status-dot {
-            height: 6px; width: 6px; background-color: #10b981;
-            border-radius: 50%; display: inline-block;
-            box-shadow: 0 0 10px #10b981;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-        .img-glow { box-shadow: 0 0 15px rgba(0,0,0,0.5); }
     </style>
 </head>
-<body class="text-zinc-400 p-6 md:p-12 min-h-screen">
+<body class="text-zinc-300 p-6 min-h-screen font-sans">
     <div class="max-w-2xl mx-auto">
-        <header class="mb-16 flex justify-between items-start">
+        <header class="mb-12 flex justify-between items-end">
             <div>
-                <h1 class="text-5xl font-black text-white italic tracking-tighter mb-2">LIVE MONITOR</h1>
-                <div class="flex items-center gap-2">
-                    <span class="status-dot"></span>
-                    <p class="text-[10px] text-zinc-500 font-mono tracking-[0.3em] uppercase">System Core / Active</p>
-                </div>
+                <h1 class="text-4xl font-black text-white italic tracking-tighter">LIVE MONITOR</h1>
+                <p class="text-[10px] text-sky-500 font-mono tracking-widest mt-1 uppercase">Real-time Sales Activity</p>
             </div>
-            <div id="update-timer" class="text-[9px] font-mono text-zinc-600 bg-zinc-900/50 px-3 py-1 rounded-full border border-zinc-800/50">
-                WAITING FOR DATA
-            </div>
+            <div id="update-timer" class="text-[9px] text-zinc-600 font-mono">SYNCING...</div>
         </header>
 
-        <div id="activity-list" class="space-y-4">
-            <div class="flex justify-center py-20">
-                <div class="w-5 h-5 border-2 border-zinc-800 border-t-zinc-400 rounded-full animate-spin"></div>
+        <div id="activity-list" class="space-y-6">
+            <div class="text-center py-20">
+                <div class="inline-block animate-spin h-6 w-6 border-2 border-sky-500 border-t-transparent rounded-full"></div>
             </div>
         </div>
-
-        <footer class="mt-20 text-center">
-            <p class="text-[9px] text-zinc-800 font-mono tracking-widest uppercase">© 2026 Terminal Access / K-Monstar Sales Protocol</p>
-        </footer>
     </div>
 
     <script>
-        async function fetchMonitorData() {
+        async function loadData() {
             const container = document.getElementById('activity-list');
             const timer = document.getElementById('update-timer');
             
             try {
                 const res = await fetch(`list.json?v=${Date.now()}`);
-                if (!res.ok) throw new Error("LINK_ERROR");
+                if (!res.ok) throw new Error("等待數據傳輸中...");
                 
                 const data = await res.json();
                 const products = data.products || [];
 
                 if (products.length === 0) {
-                    container.innerHTML = '<div class="text-center text-zinc-800 py-10 font-mono text-xs uppercase tracking-widest">No active protocols found</div>';
+                    container.innerHTML = '<div class="text-center text-zinc-700 py-10 italic">目前無進行中活動</div>';
                     return;
                 }
 
-                timer.innerText = 'LAST_SYNC: ' + new Date().toLocaleTimeString().toUpperCase();
+                timer.innerText = 'LAST SYNC: ' + new Date().toLocaleTimeString();
 
                 container.innerHTML = products.map(p => `
-                    <div class="event-card p-4 rounded-3xl flex items-center group">
-                        <div class="w-20 h-20 shrink-0 overflow-hidden rounded-2xl border border-zinc-800/50 img-glow">
+                    <div class="event-card p-5 rounded-[2.5rem] flex items-center shadow-2xl transition-all hover:scale-[1.01] hover:border-zinc-700">
+                        <div class="img-container mr-5">
                             <img src="${p.thumbnailUrl || 'https://via.placeholder.com/150'}" 
-                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                 alt="poster" class="w-full h-full object-cover">
                         </div>
                         
-                        <div class="flex-1 min-w-0 px-5">
-                            <div class="text-[9px] text-sky-500 font-black mb-1 tracking-widest uppercase">${p.vendor || 'Unknown Source'}</div>
-                            <h3 class="text-zinc-100 font-bold text-sm leading-tight line-clamp-2 mb-3 tracking-tight">${p.title}</h3>
-                            <div
+                        <div class="flex-1 min-w-0 pr-4">
+                            <div class="text-[10px] text-zinc-500 font-bold mb-1 truncate">${p.vendor || 'K-MONSTAR'}</div>
+                            <h3 class="text-white font-bold text-sm leading-tight line-clamp-2 mb-2">${p.title}</h3>
+                            <div class="flex items-center gap-3">
+                                <span class="text-[10px] bg-sky-500/10 text-sky-400 px-2 py-0.5 rounded-full font-bold font-mono">
+                                    QTY: ${p.totalSalesQuantity || 0}
+                                </span>
+                            </div>
+                        </div>
+
+                        <button onclick="location.href='detail.html?id=${p.productUuid}'" 
+                                class="bg-white text-black text-[10px] font-black px-5 py-3 rounded-2xl hover:bg-sky-500 hover:text-white transition-all shrink-0 shadow-lg">
+                            ANALYSIS
+                        </button>
+                    </div>
+                `).join('');
+
+            } catch (e) {
+                container.innerHTML = `<div class="text-center text-zinc-800 py-10">${e.message}</div>`;
+            }
+        }
+
+        loadData();
+        // 每 30 秒自動刷新
+        setInterval(loadData, 30000);
+    </script>
+</body>
+</html>
